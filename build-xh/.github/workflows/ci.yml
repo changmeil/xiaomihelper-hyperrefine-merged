@@ -1,0 +1,116 @@
+name: XiaomiHelper CI
+
+on:
+  push:
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'README**.md'
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: 'Release Version Code'
+        required: true
+        type: string
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+
+    - name: Checkout submodules
+      run: git submodule update --init --recursive
+
+    - name: Get short SHA
+      run: echo "SHA7=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+          
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    - name: Decode android signing key
+      run: echo ${{ secrets.SIGNING_KEY }} | base64 -d > keystore.jks
+
+    - name: Prepare Version and Build Type
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          VC="${{ inputs.version_code }}"
+          YY=${VC:0:2}
+          MM=${VC:2:2}
+          VN="${YY}.${MM}"
+        
+          echo "CI_VERSION_CODE=$VC" >> $GITHUB_ENV
+          echo "CI_VERSION_NAME=$VN" >> $GITHUB_ENV
+          echo "BUILD_TASKS=assembleRelease" >> $GITHUB_ENV
+          echo "MAIN_BUILD_TYPE=release" >> $GITHUB_ENV
+          echo "INFO: Manual Release Mode - $VN ($VC)"
+        else
+          TAG_NAME=${GITHUB_REF#refs/tags/v}
+          VC=$TAG_NAME
+          YY=${VC:0:2}
+          MM=${VC:2:2}
+          X=${VC:4}
+          VN="${YY}.${MM}.${X}"
+        
+          echo "CI_VERSION_CODE=$VC" >> $GITHUB_ENV
+          echo "CI_VERSION_NAME=$VN" >> $GITHUB_ENV
+          echo "BUILD_TASKS=assembleDebug assemblePreview" >> $GITHUB_ENV
+          echo "MAIN_BUILD_TYPE=preview" >> $GITHUB_ENV
+          echo "INFO: Tag Preview Mode - $VN ($VC)"
+        fi
+
+    - name: Build apks
+      run: ./gradlew ${{ env.BUILD_TASKS }}
+      env:
+        KEYSTORE_PATH: "../keystore.jks"
+        KEYSTORE_PWD: ${{ secrets.KEYSTORE_PWD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        KEY_PWD: ${{ secrets.KEY_PWD }}
+
+    - name: Get tags
+      id: tag
+      uses: JinoArch/get-latest-tag@latest
+
+    - name: Generate changelog
+      id: changelog
+      run: |
+        {
+          echo 'CHANGELOG<<EOF'
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo '```'
+            echo "Stable Release: ${{ env.CI_VERSION_NAME }}"
+            echo '```'
+          else
+            echo '```'
+            git log -n 10 --oneline ${{ steps.tag.outputs.previousTag }}..${{ steps.tag.outputs.latestTag }}
+            
+            TOTAL_COMMITS=$(git rev-list --count ${{ steps.tag.outputs.previousTag }}..${{ steps.tag.outputs.latestTag }} 2>/dev/null || echo 0)
+            if [ "$TOTAL_COMMITS" -gt 10 ]; then
+              echo "... and $(($TOTAL_COMMITS - 10)) more commits."
+            fi
+            echo '```'
+          fi
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: Post to Telegram ci channel
+      if: ${{ success() }}
+      env:
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        COMMIT_MESSAGE: |+
+          Hyper Helper ${{ env.MAIN_BUILD_TYPE == 'preview' && 'Insider Preview' || 'Stable Release' }}
+
+          ${{ env.CHANGELOG }}
+      run: python3 ./scripts/upload.py

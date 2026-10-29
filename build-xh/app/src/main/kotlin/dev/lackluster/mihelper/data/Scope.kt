@@ -1,0 +1,43 @@
+package dev.lackluster.mihelper.data
+
+object Scope {
+    const val AI_ENGINE = "com.xiaomi.aicr"
+    const val SYSTEM = "system"
+    const val BROWSER = "com.android.browser"
+    const val DOWNLOAD = "com.android.providers.downloads"
+    const val DOWNLOAD_UI = "com.android.providers.downloads.ui"
+    const val FIND_DEVICE = "com.xiaomi.finddevice"
+    const val GUARD_PROVIDER = "com.miui.guardprovider"
+    const val IN_CALL_UI = "com.android.incallui"
+    const val LBE = "com.lbe.security.miui"
+    const val MARKET = "com.xiaomi.market"
+    const val MI_AI = "com.miui.voiceassist"
+    const val MI_INTENT_RESOLVER = "com.android.intentresolver"
+    const val MI_LINK = "com.milink.service"
+    const val MI_SETTINGS = "com.xiaomi.misettings"
+    const val MI_TRUST = "com.xiaomi.trustservice"
+    const val MI_MIRROR = "com.xiaomi.mirror"
+    const val MIUI_HOME = "com.miui.home"
+    const val MMS = "com.android.mms"
+    const val MUSIC = "com.miui.player"
+    const val PACKAGE_INSTALLER = "com.miui.packageinstaller"
+    const val PERSONAL_ASSIST = "com.miui.personalassistant"
+    const val POWER_KEEPER = "com.miui.powerkeeper"
+    const val REMOTE_CONTROLLER = "com.duokan.phone.remotecontroller"
+    const val SEARCH = "com.android.quicksearchbox"
+    const val SECURITY_CENTER = "com.miui.securitycenter"
+    const val SETTINGS = "com.android.settings"
+    const val SYSTEM_UI = "com.android.systemui"
+    const val SYSTEM_UI_PLUGIN = "miui.systemui.plugin"
+    const val TAPLUS = "com.miui.contentextension"
+    const val THEMES = "com.android.thememanager"
+    const val UPDATER = "com.android.updater"
+}
+
+object Version {
+    const val BROWSER = "20.23.1020715 (202310200)"
+    const val MARKET = "4.122.12 (40007502)"
+    const val MUSIC = "4.44.0.9 (4440009)"
+    const val PACKAGE_INSTALLER = "5.5.4.0.0-20260701 (55400)"
+    const val SECURITY_CENTER = "12.1.5-251218.0.1 (40001215)"
+}

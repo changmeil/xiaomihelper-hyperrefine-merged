@@ -1,0 +1,32 @@
+# ============================================================
+# 白名单式：只收录源码 / 说明文档 / 最新成品
+# 其余（构建环境、构建产物、签名材料、本地记忆）一律不入库
+# ============================================================
+/*
+!/.gitignore
+!/README.md
+!/NOTICE.md
+!/build-xh/
+!/hyperrefine-merge/
+
+# ---------- 构建产物与本机环境 ----------
+/build-xh/**/build/
+/build-xh/.gradle/
+/build-xh/.kotlin/
+/build-xh/local.properties
+/build-xh/.idea/
+/build-xh/*.iml
+/build-xh/captures/
+**/.DS_Store
+*.hprof
+*.log
+
+# ---------- 签名材料：绝不入库 ----------
+*.keystore
+*.jks
+*.p12
+keystore.properties
+
+# ---------- 旧产物：只保留最新 release ----------
+/hyperrefine-merge/*debug*.apk
+/hyperrefine-merge/HyperRefine-1.14.0-lite-arm64-release.apk

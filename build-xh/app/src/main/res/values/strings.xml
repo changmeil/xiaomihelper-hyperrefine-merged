@@ -1,0 +1,935 @@
+<resources>
+    <string name="app_name">Hyper Helper</string>
+    <string name="xposed_desc">Make HyperOS Great Again!</string>
+    <string name="common_default">Default</string>
+    <string name="common_current">Current</string>
+    <string name="common_custom">Custom</string>
+    <string name="common_general">General</string>
+    <string name="common_invalid_input">Invalid input</string>
+    <string name="common_range">Range</string>
+    <string name="common_search">Search</string>
+    <string name="common_others">Others</string>
+    <string name="common_tap_sleep">Double-tap on empty space to lock the screen</string>
+    <string name="common_disabled">Disabled</string>
+    <string name="common_enabled">Enabled</string>
+    <string name="common_on">On</string>
+    <string name="common_off">Off</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_enable">Enable</string>
+    <string name="button_disable">Disable</string>
+    <string name="button_ignore">Ignore</string>
+    <string name="button_do_not_remind">Don\'t remind me again</string>
+    <string name="dialog_done">Done</string>
+    <string name="dialog_warning">Warning</string>
+    <string name="dialog_error">Error</string>
+    <string name="page_main" translatable="false">@string/app_name</string>
+    <string name="page_dev_ui_test">UI element test</string>
+    <string name="page_about">About module</string>
+    <string name="page_menu">Menu</string>
+    <string name="page_virtual_media_control_style" translatable="false">@string/systemui_notif_media_control_style_tips</string>
+    <string name="page_module">Module settings</string>
+    <string name="page_systemui" translatable="false">@string/scope_systemui</string>
+    <string name="page_android">Android Framework</string>
+    <string name="page_miui_home" translatable="false">@string/scope_miui_home</string>
+    <string name="page_cleaner">Clean master</string>
+    <string name="page_security_center" translatable="false">@string/scope_security_center</string>
+    <string name="page_security_center_pad" translatable="false">@string/scope_security_center_pad</string>
+    <string name="page_others" translatable="false">@string/common_others</string>
+    <string name="page_status_bar_clock">Clock</string>
+    <string name="page_status_bar_icon_tuner">Icon tuner</string>
+    <string name="page_status_bar_icon_detail">Icon customizer</string>
+    <string name="page_status_bar_icon_order">Customize icon order</string>
+    <string name="page_status_bar_font">Font</string>
+    <string name="page_media_control_style">Media control style</string>
+    <string name="scope_ai_engine">Xiaomi HyperAI Engine</string>
+    <string name="scope_android">System</string>
+    <string name="scope_browser">Mi Browser</string>
+    <string name="scope_download">Download</string>
+    <string name="scope_find_device">Find device</string>
+    <string name="scope_gallery">Gallery</string>
+    <string name="scope_guard_provider">System security components</string>
+    <string name="scope_in_call_ui">Phone</string>
+    <string name="scope_joyose">Joyose</string>
+    <string name="scope_lbe">Permissions</string>
+    <string name="scope_market">GetApps</string>
+    <string name="scope_mi_ai">Mi AI</string>
+    <string name="scope_mi_link">Interconnectivity services</string>
+    <string name="scope_mi_mirror">Device interconnectivity services</string>
+    <string name="scope_mi_share">Xiaomi Share</string>
+    <string name="scope_mi_trust">MiTrustService</string>
+    <string name="scope_miui_home">System launcher</string>
+    <string name="scope_mms">Messaging</string>
+    <string name="scope_music">Music</string>
+    <string name="scope_package_installer">Package installer</string>
+    <string name="scope_power_keeper">Battery and performance</string>
+    <string name="scope_remote_controller">Mi Remote</string>
+    <string name="scope_screen_recorder">Screen Recorder</string>
+    <string name="scope_screenshot">Screenshot</string>
+    <string name="scope_search">Search</string>
+    <string name="scope_security_center">Security</string>
+    <string name="scope_security_center_pad">@string/scope_security_center</string>
+    <string name="scope_settings">Settings</string>
+    <string name="scope_systemui">System UI</string>
+    <string name="scope_taplus">Taplus</string>
+    <string name="scope_themes">Themes</string>
+    <string name="scope_updater">Updater</string>
+    <string name="scope_weather">Weather</string>
+    <string name="action_notifications">Notification shade</string>
+    <string name="action_quick_settings">Quick settings panel</string>
+    <string name="action_lock_screen">Turn off screen</string>
+    <string name="action_screenshot">Take screenshot</string>
+    <string name="action_home">Home</string>
+    <string name="action_recents">Overview (recent apps)</string>
+    <string name="action_back">Back</string>
+    <string name="action_recognize_screen">Recognize screen</string>
+    <string name="action_xiaoai">Xiaomi Hyper XiaoAi</string>
+    <string name="action_floating_window">Floating window</string>
+    <string name="action_scroll_to_top">Scroll to top</string>
+    <string name="search_use_browser">Search using browser</string>
+    <string name="search_engine">Search engine</string>
+    <string name="search_engine_default">Default</string>
+    <string name="search_engine_baidu">Baidu</string>
+    <string name="search_engine_sogou">Sogou</string>
+    <string name="search_engine_bing">Bing</string>
+    <string name="search_engine_google">Google</string>
+    <string name="search_engine_custom" translatable="false">@string/common_custom</string>
+    <string name="search_engine_custom_url">Custom search engine</string>
+    <string name="search_engine_custom_url_toast">The URL must contain \"%s\"</string>
+    <!-- MainPage -->
+    <string name="main_module_inactive_dialog_lsposed" translatable="false">LSPosed</string>
+    <string name="main_module_inactive_tips">The module isn\'t enabled. Please check the LSPosed version and module activation information and try again.</string>
+    <string name="main_module_disabled_tips">The module isn\'t enabled. Please enable the module in the Module settings page.</string>
+    <string name="main_app_root_tips">Lack of root privileges can prevent some features from working properly.</string>
+    <string name="main_system_version_tips">Your system version is below Android 16 or HyperOS 3.0.300. Most features may not work properly.</string>
+    <!-- MenuPage -->
+    <string name="ui_title_menu_reboot">Reboot</string>
+    <string name="menu_reboot_system">Reboot system</string>
+    <string name="menu_reboot_system_tips">Are you sure you want to reboot the system?</string>
+    <string name="menu_reboot_scope">Reboot all scopes</string>
+    <string name="menu_reboot_scope_tips">Are you sure you want to reboot all scope apps?</string>
+    <string name="menu_reboot_systemui">Reboot System UI</string>
+    <string name="menu_reboot_systemui_tips">Are you sure you want to reboot the System UI?</string>
+    <string name="menu_reboot_launcher">Reboot System launcher</string>
+    <string name="menu_reboot_launcher_tips">Are you sure you want to reboot the System launcher?</string>
+    <string name="menu_reboot_common_title">Reboot %s</string>
+    <string name="menu_reboot_common_message">Are you sure you want to reboot the %s?</string>
+    <string name="menu_reboot_error_toast">Reboot failed! Please grant root permission to this app and try again.</string>
+    <string name="menu_reboot_done_toast">All target apps have been restarted</string>
+    <string name="menu_shortcut_lsposed" translatable="false">LSPosed</string>
+    <!-- AboutPage -->
+    <string name="about_jump_error_toast">Some strange errors have occurred</string>
+    <string name="about_easter_egg_toast">You clicked and nothing happened</string>
+    <string name="about_hyperx_compose">This app is based on HyperX Compose</string>
+    <string name="about_hyperx_compose_tips">HyperX Compose is a shared Compose UI library for Android based on Miuix</string>
+    <string name="about_miuix">This app is based on Miuix</string>
+    <string name="about_miuix_tips">Miuix is a shared UI library for Compose Multiplatform</string>
+    <string name="about_kavaref">This app is based on KavaRef</string>
+    <string name="about_kavaref_tips">Learn more https://github.com/HighCapable/KavaRef</string>
+    <string name="ui_title_about_developer">Developer</string>
+    <string name="ui_title_about_others" translatable="false">@string/common_others</string>
+    <string name="about_translate">Translate</string>
+    <string name="about_translate_tips">Help us translate the app into your language</string>
+    <string name="about_donate">Donate</string>
+    <string name="about_donate_tips">Buy me a coffee</string>
+    <string name="about_repository">Source code</string>
+    <string name="about_repository_tips">GitHub repository</string>
+    <string name="about_telegram">Telegram channel</string>
+    <string name="about_telegram_tips">Join the Telegram channel to give feedback and get internal updates.</string>
+    <string name="ui_title_about_reference">References</string>
+    <!-- ModuleSettingsPage -->
+    <string name="ui_title_module_general" translatable="false">@string/common_general</string>
+    <string name="module_main_switch">Enable module</string>
+    <string name="module_dexkit_cache">Cache DexKit results</string>
+    <string name="module_dexkit_cache_tips">Using caches reduces the negative impact on performance but generates a cache file in the host app directory. When this feature is turned off, the cache file will be cleared the next time the host app starts (if it exists).</string>
+    <string name="module_hide_icon">Hide icon in Home screen</string>
+    <string name="module_skip_root_check">Disable root privilege checking</string>
+    <string name="module_skip_root_check_tips">Takes effect after restarting the app</string>
+    <string name="module_debug">Debug mode</string>
+    <string name="module_debug_tips">When enabled, debug logs will be printed. Takes effect immediately. Please enable only when needed!</string>
+    <string name="module_show_in_settings">Icon in Settings</string>
+    <string name="module_settings_entry_position_disabled" translatable="false">@string/common_disabled</string>
+    <string name="module_settings_entry_position_after_device">Show after \"My device\"</string>
+    <string name="module_settings_entry_position_before_wifi">Show before \"WLAN\"</string>
+    <string name="module_settings_icon_style">Icon style in Settings</string>
+    <string name="module_settings_icon_style_default" translatable="false">@string/common_default</string>
+    <string name="module_settings_icon_style_android">Android</string>
+    <string name="module_settings_icon_color">Icon color in Settings</string>
+    <string name="module_settings_icon_color_gray">Grey</string>
+    <string name="module_settings_icon_color_red">Red</string>
+    <string name="module_settings_icon_color_green">Green</string>
+    <string name="module_settings_icon_color_blue">Blue</string>
+    <string name="module_settings_icon_color_purple">Purple</string>
+    <string name="module_settings_icon_color_yellow">Yellow</string>
+    <string name="module_settings_name">Name in Settings</string>
+    <string name="module_settings_name_helper" translatable="false">Hyper Helper</string>
+    <string name="module_settings_name_advanced">Advanced settings</string>
+    <string name="module_settings_name_custom" translatable="false">@string/common_custom</string>
+    <string name="module_settings_custom_name">Custom entry title</string>
+    <string name="ui_title_module_ui">Interface and display</string>
+    <string name="module_ui_blur">Blur effect</string>
+    <string name="module_ui_blur_tint_alpha_light">Opacity of tinted colors in Light mode</string>
+    <string name="module_ui_blur_tint_alpha_dark">Opacity of tinted colors in Dark mode</string>
+    <string name="module_ui_split">Adaptive layouts</string>
+    <string name="module_ui_split_tips">The app will automatically switch to a dual-panel layout on large-screen devices or landscape screens</string>
+    <string name="ui_title_module_backup">Backup &amp; restore</string>
+    <string name="module_backup">Backup module preferences</string>
+    <string name="module_restore">Restore module preferences</string>
+    <string name="module_reset">Reset module preferences</string>
+    <string name="module_reset_warning">Resetting all preferences is an irreversible operation, please make sure you have a backup. \nDo you want to continue?</string>
+    <string name="module_backup_success">All preferences have been exported to the specified file.</string>
+    <string name="module_backup_failure">Backup failed.</string>
+    <string name="module_restore_success">Preferences have been restored from the file.</string>
+    <string name="module_restore_failure">Restore failed. Please check the backup file.</string>
+    <string name="module_reset_success">All preferences have been restored to default settings.</string>
+    <string name="module_reset_failure">Reset failed.</string>
+    <!-- SystemUIPage -->
+    <string name="ui_title_systemui_statusbar">Status bar</string>
+    <string name="systemui_statusbar_font" translatable="false">@string/page_status_bar_font</string>
+    <string name="systemui_statusbar_clock" translatable="false">@string/page_status_bar_clock</string>
+    <string name="systemui_statusbar_icon_tuner" translatable="false">@string/page_status_bar_icon_tuner</string>
+    <string name="systemui_statusbar_icon_detail" translatable="false">@string/page_status_bar_icon_detail</string>
+    <string name="systemui_statusbar_notif_count">Customize the maximum number of notifications to display</string>
+    <string name="systemui_statusbar_notif_count_icon">Maximum number of status bar notification icons</string>
+    <string name="systemui_statusbar_tap_to_sleep" translatable="false">@string/common_tap_sleep</string>
+    <string name="systemui_statusbar_gesture_single_tap">Single-tap gesture</string>
+    <string name="systemui_statusbar_gesture_single_tap_tips">Single tap the blank area of the status bar to trigger a specific function</string>
+    <string name="systemui_statusbar_gesture_double_tap">Double-tap gesture</string>
+    <string name="systemui_statusbar_gesture_double_tap_tips">Double tap the blank area of the status bar to trigger a specific function</string>
+    <string name="systemui_statusbar_region_sampling">Region sampling</string>
+    <string name="systemui_statusbar_region_sampling_tips">Samples the status bar area and adjusts light/dark mode based on background color</string>
+    <string name="systemui_statusbar_region_sampling_def" translatable="false">@string/common_default</string>
+    <string name="systemui_statusbar_region_sampling_def_tips">Enabled in dark mode only</string>
+    <string name="systemui_statusbar_region_sampling_enable">Force enable</string>
+    <string name="systemui_statusbar_region_sampling_enable_tips">Always enabled; may cause frequent status bar flickering.</string>
+    <string name="systemui_statusbar_region_sampling_disable">Force disable</string>
+    <string name="systemui_statusbar_region_sampling_disable_tips">Always disabled; may cause incorrect status bar contrast in apps with forced dark mode.</string>
+    <string name="ui_title_systemui_lock_screen">Lock screen</string>
+    <string name="systemui_lock_hide_disturb">Hide Do Not Disturb mode resident notifications</string>
+    <string name="systemui_lock_keep_notif">Keep notifications after unlocking</string>
+    <string name="systemui_lock_keep_notif_tips">Notifications will always be displayed on the Lock screen until they\'re manually dismissed.</string>
+    <string name="systemui_lock_double_tap" translatable="false">@string/common_tap_sleep</string>
+    <string name="systemui_lock_flashlight_on">Turn on the flashlight automatically</string>
+    <string name="systemui_lock_flashlight_on_tips">Automatically turn on the flashlight when opening the flashlight adjustment interface from the Lock screen shortcut.</string>
+    <string name="systemui_lock_keep_clock_container">Always show the start of the status bar</string>
+    <string name="systemui_lock_keep_clock_container_tips">Always show the left side of the status bar (or right side in RTL), usually the carrier label. This view is hidden by default during AOD.</string>
+    <string name="systemui_lock_hide_next_alarm">Hide next alarm</string>
+    <string name="systemui_lock_hide_next_alarm_tips">Hide the next alarm time indicator at the start of the status bar</string>
+    <string name="systemui_lock_hide_carrier_one" translatable="false">@string/systemui_control_hide_carrier_one</string>
+    <string name="systemui_lock_hide_carrier_two" translatable="false">@string/systemui_control_hide_carrier_two</string>
+    <string name="systemui_lock_force_color_scheme_statusbar" translatable="false">@string/home_others_force_color_scheme_statusbar</string>
+    <string name="ui_title_systemui_notification_center">Notification shade</string>
+    <string name="systemui_notif_disable_whitelist">Disable notification whitelist</string>
+    <string name="systemui_notif_disable_whitelist_tips">Too many notifications may cause lag on the lock screen</string>
+    <string name="systemui_notif_suppress_fold">Disable notification folding</string>
+    <string name="systemui_notif_suppress_fold_tips">Prevent the system from grouping notifications into \"More notifications\"</string>
+    <string name="systemui_notif_freeform">Allow most notifications to open in a small window</string>
+    <string name="systemui_notif_freeform_tips">Pull down notifications to open small windows. Some notifications pushed via Mi Push may not be supported.</string>
+    <string name="systemui_notif_media_control_style" translatable="false">@string/page_media_control_style</string>
+    <string name="systemui_notif_media_control_style_tips">Customize the style of the media control in the notification shade</string>
+    <string name="systemui_notif_expand_notif">Expand notifications</string>
+    <string name="systemui_notif_expand_notif_tips">It\'s highly recommended to use an Overlay (RRO) to modify the notification expansion behavior</string>
+    <string name="systemui_notif_expand_notif_def" translatable="false">@string/common_default</string>
+    <string name="systemui_notif_expand_notif_def_tips">Don\'t expand notifications</string>
+    <string name="systemui_notif_expand_notif_first">First</string>
+    <string name="systemui_notif_expand_notif_first_tips">Auto-expand the first notification if it\'s ungrouped</string>
+    <string name="systemui_notif_expand_notif_ungrouped">Ungrouped</string>
+    <string name="systemui_notif_expand_notif_ungrouped_tips">Always expand ungrouped notifications</string>
+    <string name="systemui_notif_expand_ignore_focus">Ignore Spotlight notification</string>
+    <string name="systemui_notif_expand_ignore_focus_tips">Ignore Spotlight notification when expanding the first notification</string>
+    <string name="systemui_notif_lr_opt">Optimize layout and ranking</string>
+    <string name="systemui_notif_lr_opt_tips">Modify the layout of the notification list and the ranking rules for notifications. Recommended when using Android-style notifications.</string>
+    <string name="systemui_notif_lr_hide_section_header">Hide section header</string>
+    <string name="systemui_notif_lr_hide_section_header_tips">When there is a MessageStyle notification, it is usually pinned to the top, and a small dot (section header) appears below it.</string>
+    <string name="systemui_notif_lr_hide_section_gap">Hide section spacing</string>
+    <string name="systemui_notif_lr_hide_section_gap_tips">The spacing between the media control panel and the next notification differs from the spacing between other notifications because the media panel and other notifications belong to separate sections, and the system adds extra section spacing.</string>
+    <string name="systemui_notif_lr_rerank">Re-rank notifications</string>
+    <string name="systemui_notif_lr_rerank_tips">Re-rank notifications and reorder them in the following sequence: media control panel, system alerts, Spotlight notifications, MessageStyle notifications, and other notifications.</string>
+    <string name="systemui_notif_lr_pinned_apps">Pin app notifications</string>
+    <string name="systemui_notif_lr_pinned_apps_tips">Prioritize regular notifications from selected apps. Conversation and MessagingStyle notifications still take priority.</string>
+    <string name="systemui_notif_lr_pinned_apps_hint">A smaller priority value appears first; 0 is the highest. Apps with the same priority retain the system’s normal order. Only regular notifications are affected—Conversation and MessagingStyle notifications remain prioritized.</string>
+    <string name="systemui_notif_lr_pinned_apps_enable">Enable pinned app notifications</string>
+    <string name="systemui_notif_lr_pinned_apps_add">Add app</string>
+    <string name="systemui_notif_lr_pinned_apps_list">Added apps</string>
+    <string name="systemui_notif_lr_pinned_apps_rule">App rule</string>
+    <string name="systemui_notif_lr_pinned_apps_rule_hint">Enter a package name and a non-negative priority. Lower values are prioritized, and multiple apps may use the same value.</string>
+    <string name="systemui_notif_lr_pinned_apps_priority">Priority</string>
+    <string name="systemui_notif_lr_pinned_apps_invalid_pkg">Package name cannot be empty</string>
+    <string name="systemui_notif_lr_pinned_apps_invalid_index">Priority must be a non-negative integer</string>
+    <string name="systemui_notif_lr_pinned_apps_pkg_exists">Configuration for app %s already exists</string>
+    <string name="systemui_notif_lr_pinned_apps_delete_warning">Are you sure you want to delete %s?</string>
+    <string name="systemui_notif_miuix_expand_btn">Miuix style expand button</string>
+    <string name="systemui_notif_miuix_expand_btn_tips">Replace the expand button of Android-style notifications with Miuix button</string>
+    <string name="ui_title_systemui_dynamic_island">Dynamic Island</string>
+    <string name="systemui_di_media_control_style" translatable="false">@string/page_media_control_style</string>
+    <string name="systemui_di_media_control_style_tips">Customize the style of the media control in the Dynamic Island</string>
+    <string name="systemui_di_disable_whitelist">Disable Dynamic Island whitelist</string>
+    <string name="systemui_di_disable_whitelist_tips">Allow any app to appear on Dynamic Island</string>
+    <string name="systemui_di_disable_media_whitelist">Disable media control pull‑down window whitelist</string>
+    <string name="systemui_di_disable_media_whitelist_tips">Allow any media app to open in a small window via Dynamic Island pull‑down</string>
+    <string name="ui_title_systemui_control_center">Control center</string>
+    <string name="systemui_control_hide_carrier_one">Hide carrier label for SIM card 1</string>
+    <string name="systemui_control_hide_carrier_two">Hide carrier label for SIM card 2</string>
+    <string name="systemui_control_hide_carrier_hd">Hide HD</string>
+    <string name="systemui_control_hide_carrier_hd_tips">Hide the HD icon next to the carrier label</string>
+    <string name="systemui_control_hide_edit">Hide edit button</string>
+    <string name="ui_title_systemui_others" translatable="false">@string/common_others</string>
+    <string name="systemui_others_monet_overlay">Customize theme color</string>
+    <string name="systemui_others_monet_overlay_tips">Customize theme colors instead of fetching colors from system wallpaper</string>
+    <string name="systemui_others_monet_color">Theme color</string>
+    <string name="systemui_others_monet_color_tips">This color will affect all apps that use dynamic color schemes</string>
+    <!-- MiuiHomePage -->
+    <string name="ui_title_home_gesture">Gesture</string>
+    <string name="home_gesture_back_haptic">Back gesture haptic feedback</string>
+    <string name="home_gesture_back_haptic_default" translatable="false">@string/common_default</string>
+    <string name="home_gesture_back_haptic_default_tips">Perform haptic feedback on the start of swipes</string>
+    <string name="home_gesture_back_haptic_enhanced">Enhanced</string>
+    <string name="home_gesture_back_haptic_enhanced_tips">Perform haptic feedback on the start and release of swipes</string>
+    <string name="home_gesture_back_haptic_disabled" translatable="false">@string/common_disabled</string>
+    <string name="home_gesture_fix_predictive_back">Fix predictive back progress error</string>
+    <string name="home_gesture_fix_predictive_back_tips">HyperOS has broken the predictive back behavior, causing the swipe distance requirement to be too short. When enabled, it restores the AOSP behavior. This option can only fix the progress error of predictive back and cannot recover scenarios where predictive back is completely broken.</string>
+    <string name="home_gesture_line_long_press">Long press on the full screen indicator</string>
+    <string name="home_gesture_line_long_press_tips">Long press on the full screen indicator to trigger a specific function</string>
+    <string name="home_gesture_line_double_tap">Double tap on the full screen indicator</string>
+    <string name="home_gesture_line_double_tap_tips">Double tap on the full screen indicator to trigger a specific function</string>
+    <string name="home_gesture_line_single_tap">Single tap on the full screen indicator</string>
+    <string name="home_gesture_line_single_tap_tips">Single tap on the full screen indicator to trigger a specific function</string>
+    <string name="ui_title_home_anim">Animation</string>
+    <string name="home_anim_icon_zoom">Disable zoom animation on icon click</string>
+    <string name="home_anim_icon_darken">Disable dim animation on icon click</string>
+    <string name="home_anim_folder_zoom">Disable zoom animation on folder click</string>
+    <string name="home_anim_folder_icon_darken">Disable dim animation when clicking on icon in folder</string>
+    <string name="ui_title_home_folder">Folder</string>
+    <string name="home_folder_adapt_icon_size">Adaptive icon size in large folders</string>
+    <string name="home_folder_adapt_icon_size_tips">When a large folder (3x3 or 2x2) is just filled with icons (number of 9 or 4), the last icon is also a large icon.</string>
+    <string name="ui_title_home_recent">Recent tasks</string>
+    <string name="home_recent_dismiss_anim">Modify card animation when dismissing recent tasks</string>
+    <string name="home_recent_hide_clear_all">Hide Clear all button</string>
+    <string name="home_recent_clear_all">Clear all button</string>
+    <string name="home_recent_clear_all_default" translatable="false">@string/common_default</string>
+    <string name="home_recent_clear_all_show">Always show</string>
+    <string name="home_recent_clear_all_hide">Always hide</string>
+    <string name="home_recent_mem_info_clear">Long click on memory info to clear all</string>
+    <string name="home_recent_show_real_memory">Show real memory usage</string>
+    <string name="ui_title_home_cleaner" translatable="false">@string/page_cleaner</string>
+    <string name="home_cleaner_remove_report">Remove the \"Report\" button from the uninstall app pop-up window</string>
+    <string name="ui_title_home_others" translatable="false">@string/common_others</string>
+    <string name="home_others_dock_remove_num_limit">Remove the icon limit from the dock</string>
+    <string name="home_others_show_minus_setting">Restore Personal assistant settings</string>
+    <string name="home_others_hide_fake_navbar">Hide the fake full screen indicator</string>
+    <string name="home_others_hide_fake_navbar_tips">Hide the fake full screen indicator on the horizontal Recents screen</string>
+    <string name="home_others_force_color_scheme_element">App label color</string>
+    <string name="home_others_force_color_scheme_element_tips">Specify widget and app label color (ignore wallpaper color)</string>
+    <string name="home_others_force_color_scheme_statusbar">Status bar text and icon color</string>
+    <string name="home_others_force_color_scheme_statusbar_tips">Specify the color of the status bar text and icons (ignore wallpaper color)</string>
+    <string name="home_others_force_color_scheme_minus">Personal assistant color</string>
+    <string name="home_others_force_color_scheme_minus_tips">Specify the color of the status bar text and icons for the Personal assistant (ignore wallpaper color)</string>
+    <!-- CleanMasterPage -->
+    <string name="cleaner_common_ad_blocker">Ad blocker</string>
+    <string name="cleaner_common_restart_app">Restart %1$s</string>
+    <string name="cleaner_common_version_info">Validated version: %1$s\nInstalled version: %2$s</string>
+    <string name="cleaner_common_skip_splash">Disable Home screen</string>
+    <string name="cleaner_common_skip_splash_tips">It should also disable ads on the Home screen (no guarantees)</string>
+    <string name="ui_title_cleaner_browser" translatable="false">@string/scope_browser</string>
+    <string name="cleaner_browser_show_sug_switch">Restore Search Highlights setting</string>
+    <string name="cleaner_browser_show_sug_switch_tips">Displays the hidden Search Highlights toggle in search settings. Turning it off disables extra recommendations such as apps, videos, and novels on the search page.</string>
+    <string name="cleaner_browser_hide_homepage_topbar">Hide the top bar of the start page</string>
+    <string name="cleaner_browser_hide_homepage_topbar_tips">Hide the top bar of the simplified start page, which includes settings and mode toggle buttons.</string>
+    <string name="cleaner_browser_hide_voice_button">Hide voice input button</string>
+    <string name="cleaner_browser_hide_voice_button_tips">Hide the \"Hold to speak\" button on the search page</string>
+    <string name="cleaner_browser_block_dialog">Block promotional dialogs</string>
+    <string name="cleaner_browser_block_dialog_tips">Block promotional dialogs such as widget recommendation dialogs</string>
+    <string name="cleaner_browser_debug_mode">Enable debug mode</string>
+    <string name="cleaner_browser_debug_mode_tips">Forces debug mode to be enabled. Only works with older versions of browsers.</string>
+    <string name="cleaner_browser_switch_env">Switch internal address</string>
+    <string name="cleaner_browser_switch_env_tips">Use the pre-release environment. It may be possible to remove some of the ads. It may not be possible to use settings such as customized search engine, so please finish setting before turning it on!</string>
+    <string name="cleaner_browser_disable_update">Disable update check</string>
+    <string name="cleaner_browser_sync_user_agent_metadata">Sync User-Agent data</string>
+    <string name="cleaner_browser_sync_user_agent_metadata_tips">Keeps User-Agent Client Hints and navigator.userAgentData in sync when switching between mobile and desktop User-Agent modes.</string>
+    <string name="ui_title_cleaner_download" translatable="false">@string/scope_download</string>
+    <string name="cleaner_downloadui_hide_xl">Hide Xunlei icons and text</string>
+    <string name="cleaner_download_fuck_xl">Block creation of .xlDownload folder</string>
+    <string name="ui_title_cleaner_find_device" translatable="false">@string/scope_find_device</string>
+    <string name="cleaner_find_device_fuck_aivs" translatable="false">@string/others_miai_fuck_aivs</string>
+    <string name="cleaner_find_device_fuck_aivs_tips" translatable="false">@string/others_miai_fuck_aivs_tips</string>
+    <string name="ui_title_cleaner_incallui" translatable="false">@string/scope_in_call_ui</string>
+    <string name="cleaner_incallui_hide_crbt">Hide CRBT (Coloring Ring Back Tone)</string>
+    <string name="ui_title_cleaner_market" translatable="false">@string/scope_market</string>
+    <string name="cleaner_market_block_update_dailog">Block update push dialog</string>
+    <string name="cleaner_market_block_update_dailog_tips">Block the dialog that prompts you to turn on update push, when update push is turned off and the update button is clicked.</string>
+    <string name="cleaner_market_hide_app_security">Hide app security</string>
+    <string name="cleaner_market_hide_app_security_tips">Hide the app security card on my page</string>
+    <string name="cleaner_market_bottom_tab_blur">Blur effect</string>
+    <string name="cleaner_market_bottom_tab_blur_tips">Force enable blur effect on bottom tab bar</string>
+    <string name="cleaner_market_disable_customize_icon">Disable marketing app icons</string>
+    <string name="cleaner_market_disable_customize_icon_tips">Disable the GetApps\'s ability to replace home screen app icons with marketing icons</string>
+    <string name="cleaner_market_filter_tab">Filter bottom tabs</string>
+    <string name="cleaner_market_filter_tab_tips">Hide useless tabs (and corresponding pages)</string>
+    <string name="cleaner_market_ignore_restrict">Ignore suggested limits</string>
+    <string name="cleaner_market_filter_unknown_tabs">Filter out unknown tabs</string>
+    <string name="cleaner_market_filter_unknown_tabs_tips">Filter out all tabs not shown below</string>
+    <string name="cleaner_market_visible_tabs">Visible tabs</string>
+    <string name="cleaner_market_tab_home">Home</string>
+    <string name="cleaner_market_tab_game">Games</string>
+    <string name="cleaner_market_tab_rank">Popular</string>
+    <string name="cleaner_market_tab_agent">Agent</string>
+    <string name="cleaner_market_tab_app_assemble">App feed/Video</string>
+    <string name="cleaner_market_tab_mini_game">Mini game</string>
+    <string name="cleaner_market_tab_mine">Account</string>
+    <string name="cleaner_market_filter_tab_warning">Warning: there are currently fewer than two visible tabs, which may cause UI abnormalities!</string>
+    <string name="ui_title_cleaner_milink" translatable="false">@string/scope_mi_link</string>
+    <string name="cleaner_milink_fuck_hpplay">Block creation of hpplay folders</string>
+    <string name="ui_title_cleaner_mms" translatable="false">@string/scope_mms</string>
+    <string name="ui_title_cleaner_music" translatable="false">@string/scope_music</string>
+    <string name="cleaner_music_hide_tab_long_audio">Hide audiobook</string>
+    <string name="cleaner_music_hide_tab_long_audio_tips">Hide the Audiobook entry in the bottom bar</string>
+    <string name="cleaner_music_hide_tab_quick_play">Hide free listening</string>
+    <string name="cleaner_music_hide_tab_quick_play_tips">Hide the Free listening entry in the bottom bar</string>
+    <string name="cleaner_music_hide_tab_free_mode">Hide earn</string>
+    <string name="cleaner_music_hide_tab_free_mode_tips">Hide the Earn entry in the bottom bar</string>
+    <string name="cleaner_music_hide_my_banner">Hide the banner on my page</string>
+    <string name="cleaner_music_hide_my_rec_playlist">Hide recommended songs on my page</string>
+    <string name="cleaner_music_hide_fav_num">Hide song favorite count</string>
+    <string name="cleaner_music_hide_fav_num_tips">Hide favorite counts shown on favorite icons. May affect performance.</string>
+    <string name="cleaner_music_hide_listen_count">Hide song play count</string>
+    <string name="cleaner_music_hide_listen_count_tips">Hide the song play count on the player page</string>
+    <string name="ui_title_cleaner_package" translatable="false">@string/scope_package_installer</string>
+    <string name="cleaner_package_remove_element">Disable redundant features</string>
+    <string name="cleaner_package_skip_risk_check">Disable the monitoring of risks</string>
+    <string name="cleaner_package_no_network">Disguise as no network</string>
+    <string name="cleaner_package_no_count_check">Disable frequently installed app check</string>
+    <string name="cleaner_package_block_upload_app_info">Block uploading of information about the app when it\'s installed</string>
+    <string name="cleaner_package_install_source">Custom install source</string>
+    <string name="cleaner_package_install_source_tips">Ignore the system app installation restrictions by disguising the installation source as a system app.</string>
+    <string name="cleaner_package_install_source_disabled" translatable="false">@string/common_disabled</string>
+    <string name="cleaner_package_install_source_file">File Manager</string>
+    <string name="cleaner_package_install_source_market" translatable="false">@string/scope_market</string>
+    <string name="cleaner_package_install_source_custom" translatable="false">@string/common_custom</string>
+    <string name="cleaner_package_custom_install_source">Package name of the install source</string>
+    <string name="ui_title_cleaner_remote" translatable="false">@string/scope_remote_controller</string>
+    <string name="ui_title_cleaner_themes" translatable="false">@string/scope_themes</string>
+    <!-- SystemFrameworkPage -->
+    <string name="ui_title_android_display">Display</string>
+    <string name="android_display_temp_font_scale">Temporary font scale</string>
+    <string name="android_display_temp_font_scale_tips">The changes take effect immediately, but will be lost after rebooting the system.</string>
+    <string name="android_display_temp_font_scale_msg">The value should be greater than or equal to 0.5 and less than 2.5</string>
+    <string name="android_display_temp_font_scale_fail_msg">Unable to check/modify the current font scale value. Please ensure that the entered value is within the valid range and that root privileges have been granted.</string>
+    <string name="android_display_font_scale">Persistent font scale</string>
+    <string name="android_display_font_scale_tips">Modify the actual scale values for the seven font size options in Settings</string>
+    <string name="android_display_font_scale_reboot">Take effect after reboot</string>
+    <string name="android_display_font_settings">Font settings</string>
+    <string name="android_display_font_settings_tips">System settings</string>
+    <string name="android_display_font_scale_value">Font scale</string>
+    <string name="android_display_font_scale_hint">Modify appropriate font size option based on their range and your intended value, then select the corresponding option in Settings. \n\nEnsure all options have unique values in ascending order. \n\nOptions like \"170\", \"200\", or those with values above 1.55 may be recognized by the system as large font sizes and could affect layout.</string>
+    <string name="android_display_font_scale_warn_same">Duplicate values exist</string>
+    <string name="android_display_font_scale_warn_disorder">The values aren\'t in ascending order</string>
+    <string name="android_display_font_scale_msg">The value should be greater than or equal to %1$.2f and less than %2$.2f</string>
+    <string name="android_display_font_scale_small">Small (90%)</string>
+    <string name="android_display_font_scale_medium">Medium (100%)</string>
+    <string name="android_display_font_scale_large">Large (110%)</string>
+    <string name="android_display_font_scale_huge">Huge (125%)</string>
+    <string name="android_display_font_scale_godzilla">Godzilla (145%)</string>
+    <string name="android_display_font_scale_170">170 (170%)</string>
+    <string name="android_display_font_scale_200">200 (200%)</string>
+    <string name="android_display_rotation_suggestions">Rotation suggestions</string>
+    <string name="android_display_rotation_suggestions_tips">Control the rotation suggestion indicator shown when auto-rotate is off</string>
+    <string name="android_display_rotation_suggestions_force_enabled">Force enable</string>
+    <string name="android_display_rotation_suggestions_force_disabled">Force disable</string>
+    <string name="android_display_rotation_suggestions_default">Restore default</string>
+    <string name="android_display_rotation_suggestions_fail_msg">Unable to modify rotation suggestion settings. Please ensure root privileges have been granted.</string>
+    <string name="ui_title_android_freeform">Floating windows</string>
+    <string name="android_freeform_restriction">Allow all apps to be in small window mode</string>
+    <string name="android_freeform_restriction_tips">Ignore system blacklists and software\'s own disabling of small windows</string>
+    <string name="android_freeform_allow_more">Allow more floating windows</string>
+    <string name="android_freeform_allow_more_tips">Modify the maximum number of floating to 255 to allow more floating windows to be open at the same time.</string>
+    <string name="ui_title_android_others" translatable="false">@string/common_others</string>
+    <string name="android_others_force_dark">Disable whitelisting of forced Dark mode</string>
+    <string name="android_others_force_dark_tips">Make it possible to enable the Forced dark mode feature for most apps, except for system apps, etc.</string>
+    <!-- SecurityCenterPage -->
+    <string name="security_security_skip_warning">Skip the wait time on warnings</string>
+    <string name="security_security_skip_warning_tips">Skip wait times when using USB debugging, unknown sources, and accessibility.</string>
+    <string name="security_security_skip_open_app">Chain start management</string>
+    <string name="security_security_skip_open_app_tips">Remove the confirmation pop-up containing \"Allow XXX to open XXX\" when opening apps</string>
+    <string name="security_security_skip_open_app_default" translatable="false">@string/common_default</string>
+    <string name="security_security_skip_open_app_auto_approve">Auto-approve</string>
+    <string name="security_security_skip_open_app_auto_approve_tips">Automatically approves by clicking \"Always allow\". There may be slight lag during the process. The \"Allow chain start\" switch in the system setting \"Manage chain start\" will still work.</string>
+    <string name="security_security_skip_open_app_disable">Disable wake path checker</string>
+    <string name="security_security_skip_open_app_disable_tips">App wake-ups and launches will not be recorded and cannot be viewed in \"App behavior records\". All preferences in the system setting \"Manage chain start\" will be ignored.</string>
+    <string name="security_security_screen_battery">Show screen usage in power consumption ranking</string>
+    <string name="security_security_screen_battery_tips">Battery usage of apps that are hidden by default will also be shown</string>
+    <string name="security_security_hide_screen_system">Show Android System in power consumption ranking</string>
+    <string name="security_security_bubble_restriction">Remove bubble notification app restrictions</string>
+    <string name="security_security_system_app_wifi">Allow management Wi-Fi permissions for system apps</string>
+    <string name="security_security_icon_open">Tap the icon in the app info to launch the app</string>
+    <string name="security_security_disable_risk_app_notif">Disable \"Malicious app found\" notifications</string>
+    <string name="ui_title_security_cleaner" translatable="false">@string/page_cleaner</string>
+    <string name="security_cleaner_skip_splash" translatable="false">@string/cleaner_common_skip_splash</string>
+    <string name="security_cleaner_skip_splash_tips" translatable="false">@string/cleaner_common_skip_splash_tips</string>
+    <string name="security_cleaner_lock_score">Disable health check optimization</string>
+    <string name="security_cleaner_lock_score_tips">Lock the security score to 100 and disable the \"Optimize\" button</string>
+    <string name="security_cleaner_hide_red_dot">Hide red alert dots</string>
+    <string name="security_cleaner_hide_red_dot_tips">Hide the red alert dots on Home screen grid icons</string>
+    <string name="security_cleaner_hide_home_rec">Hide recommended function</string>
+    <string name="security_cleaner_hide_home_rec_tips">Hide the recommend function banner below the function grid</string>
+    <string name="security_cleaner_hide_home_common">Hide commonly used functions</string>
+    <string name="security_cleaner_hide_home_popular">Hide popular functions</string>
+    <string name="security_cleaner_hide_home_popular_tips">Hide popular function recommendations at the bottom of the page</string>
+    <string name="security_cleaner_remove_report">Remove the \"Report\" button from the app info page</string>
+    <string name="ui_title_security_power" translatable="false">@string/scope_power_keeper</string>
+    <string name="ui_title_security_guard" translatable="false">@string/scope_guard_provider</string>
+    <string name="security_guard_block_env_check">Disable environment check</string>
+    <string name="security_guard_block_upload_app">Block uploading of installed apps list</string>
+    <string name="ui_title_lbe" translatable="false">@string/scope_lbe</string>
+    <string name="security_lbe_block_remove_auto_start">Block removal of auto-start permission</string>
+    <string name="security_lbe_block_remove_auto_start_tips">Prevents the system from removing the auto-start permission from apps</string>
+    <string name="security_lbe_clipboard_toast">Use toast to show clipboard read prompts</string>
+    <string name="security_lbe_clipboard_toast_tips">Using toast allows the element behind the prompt to be clickable</string>
+    <string name="ui_title_security_mi_trust_service" translatable="false">@string/scope_mi_trust</string>
+    <string name="mi_trust_disable_risk_check" translatable="false">@string/cleaner_package_skip_risk_check</string>
+    <string name="security_power_unlock_custom_refresh">Unlock Apps using high refresh rate</string>
+    <string name="security_power_block_battery_whitelist">Prevent recovery of battery optimization whitelist</string>
+    <string name="security_power_gms_bg_running">Remove restrictions on GMS background running</string>
+    <string name="security_power_gms_bg_running_tips">Disguised as an international version of the system, it allows GMS to run in the background, preventing the FCM connection from being interrupted after locking the screen.</string>
+    <!-- OthersPage -->
+    <string name="ui_title_others_aiengine" translatable="false">@string/scope_ai_engine</string>
+    <string name="others_aiengine_copy_link_island_browser">Open copied URL with any browser</string>
+    <string name="others_aiengine_copy_link_island_browser_tips">After copying a URL and clicking the Dynamic Island, it can be opened with any browser (instead of only Xiaomi Browser)</string>
+    <string name="ui_title_others_miai" translatable="false">@string/scope_mi_ai</string>
+    <string name="others_miai_hide_watermark">Hide beta and AIGC watermarks</string>
+    <string name="others_miai_fuck_aivs">Redirect AIVS folder</string>
+    <string name="others_miai_fuck_aivs_tips">Prevent the AIVS-SDK from creating a folder in the root of external storage</string>
+    <string name="ui_title_others_intent_resolver" formatted="false">IntentResolver</string>
+    <string name="others_intent_resolver_share_style">Share panel style</string>
+    <string name="others_intent_resolver_share_style_default" translatable="false">@string/common_default</string>
+    <string name="others_intent_resolver_share_style_aosp" translatable="false">AOSP</string>
+    <string name="others_intent_resolver_share_style_miui" translatable="false">@string/icon_detail_stacked_signal_style_miui</string>
+    <string name="others_intent_resolver_rerank">Custom share panel app order</string>
+    <string name="others_intent_resolver_rerank_tips">Modify the order of target apps shown at the bottom of the share panel</string>
+    <string name="others_intent_resolver_rerank_disabled" translatable="false">@string/common_disabled</string>
+    <string name="others_intent_resolver_rerank_enabled" translatable="false">@string/common_enabled</string>
+    <string name="others_intent_resolver_rerank_enhanced" translatable="false">@string/home_gesture_back_haptic_enhanced</string>
+    <string name="others_intent_resolver_rerank_enhanced_tips">Prevent the system from relocating \"Ask Xiaomi Hyper XiaoAi\" and \"Rear display\" to fixed positions</string>
+    <string name="others_intent_resolver_rerank_index">App order</string>
+    <string name="others_intent_resolver_rerank_index_hint">Tap Add app to specify the app\'s index, or long‑press an item to delete its rule</string>
+    <string name="others_intent_resolver_rerank_strict">Absolute position</string>
+    <string name="others_intent_resolver_rerank_strict_tips">When disabled, all added apps are prioritized over other apps. When enabled, added apps will be placed as close as possible to their specified index, and any gaps (if present) will be filled by other apps.</string>
+    <string name="others_intent_resolver_rerank_add">Add app</string>
+    <string name="others_intent_resolver_rerank_rule">App rule</string>
+    <string name="others_intent_resolver_rerank_rule_hint">Enter the package name and index to adjust the position of a specific app. The index ranges from -1 to 100, and all values except -1 must be unique. For example, -1 hides the app; 0 always places it in the first position (if present).</string>
+    <string name="others_intent_resolver_rerank_apps">Added apps</string>
+    <string name="others_intent_resolver_rerank_hidden" translatable="false">@string/icon_tuner_hide_selection_hidden</string>
+    <string name="others_intent_resolver_rerank_delete_warning">Are you sure you want to delete %s?</string>
+    <string name="others_intent_resolver_rerank_toast_invalid_pkg">Package name cannot be empty</string>
+    <string name="others_intent_resolver_rerank_toast_invalid_index">Index must be greater than or equal to -1 and less than or equal to 100</string>
+    <string name="others_intent_resolver_rerank_toast_pkg_exist">Configuration for app %s already exists</string>
+    <string name="others_intent_resolver_rerank_toast_index_exist">Index %1$d is already occupied by app %2$s</string>
+    <string name="ui_title_others_mimirror" translatable="false">@string/scope_mi_mirror</string>
+    <string name="others_mimirror_all_app">All apps can be opened on another device</string>
+    <string name="ui_title_others_search" translatable="false">@string/scope_search</string>
+    <string name="others_search_more_search_engines">Add more search engine options</string>
+    <string name="others_search_more_search_engines_tips">Add Bing and Google to Search Engine Options</string>
+    <string name="others_search_custom_search_engine">Add custom search engine</string>
+    <string name="others_search_custom_url">URL</string>
+    <string name="others_search_custom_search_url">Search URL</string>
+    <string name="others_search_custom_search_url_tips">The URL must contain \"{searchTerms}\" as a placeholder for the search keyword</string>
+    <string name="others_search_custom_search_url_hint" translatable="false">https://example.com/search?q={searchTerms}</string>
+    <string name="others_search_custom_channel">Channel</string>
+    <string name="others_search_custom_channel_tips">Leave blank if there are no special circumstances</string>
+    <string name="others_search_custom_icon">Icon</string>
+    <string name="others_search_custom_show_icon">Show icon</string>
+    <string name="others_search_custom_icon_url">Icon</string>
+    <string name="others_search_custom_icon_url_tips">URL or Base64 (starts with \"data:image/png;base64,\")</string>
+    <string name="others_search_custom_icon_url_hint" translatable="false">https://example.com/search.png</string>
+    <string name="others_search_custom_title">Title</string>
+    <string name="others_search_custom_title_hint" translatable="false">@string/others_search_custom_title</string>
+    <string name="others_search_custom_title_zh_cn">zh-CN</string>
+    <string name="others_search_custom_title_zh_tw">zh-TW</string>
+    <string name="others_search_custom_title_en_us">en-US</string>
+    <string name="others_search_custom_title_bo_cn">bo-CN</string>
+    <string name="others_search_custom_title_ug_cn">ug-CN</string>
+    <string name="others_search_custom_reset">Reset</string>
+    <string name="ui_title_others_settings" translatable="false">@string/scope_settings</string>
+    <string name="others_settings_show_google">Show Google settings</string>
+    <string name="others_settings_cellular_debug">Cellular network debugging</string>
+    <string name="others_settings_unlock_taplus_for_pad">Unlock Taplus for tablet</string>
+    <string name="others_settings_quick_per_overlay">Grant the \"Display over other apps\" permission</string>
+    <string name="others_settings_quick_per_install">Grant the \"Install unknown apps\" permission</string>
+    <string name="others_settings_quick_per_tips">Go directly to the switch that grants this permission to a specific app, instead of the list of apps associated with this permission.</string>
+    <string name="ui_title_others_taplus" translatable="false">@string/scope_taplus</string>
+    <string name="others_taplus_xiaoai_integration">Xiaomi Hyper XiaoAi Integration</string>
+    <string name="others_taplus_xiaoai_integration_tips">Displays a Xiaomi Hyper XiaoAi card when triggered, and adds Pin to Rear Screen actions for text and image recognition.</string>
+    <string name="others_taplus_rear_screen">Rear display</string>
+    <string name="ui_title_others_updater" translatable="false">@string/scope_updater</string>
+    <string name="others_updater_block_dialog">Block \"Install automatically?\" popup</string>
+    <string name="others_updater_disable_validation">Remove OTA validation</string>
+    <string name="others_updater_disable_validation_tips">Only VAB devices are supported, don\'t turn it on for non-VAB devices!</string>
+    <string name="others_updater_sota_filter">Software OTA Filtering</string>
+    <string name="others_updater_sota_filter_tips">Prevent the system from updating specified apps through Software OTA</string>
+    <string name="others_updater_sota_filter_pkgs">Protected apps</string>
+    <string name="others_updater_sota_filter_pkgs_tips">Enter the package names. For multiple apps, separate them with commas ","</string>
+    <string name="weather_card_color_default" translatable="false">@string/common_default</string>
+    <string name="weather_card_color_light">Force light</string>
+    <string name="weather_card_color_dark">Force dark</string>
+    <!-- StatusBarClockPage -->
+    <string name="ui_title_clock_general" translatable="false">@string/common_general</string>
+    <string name="clock_general_custom_layout">Customize status bar time horizontal padding</string>
+    <string name="clock_general_padding_left">Start padding</string>
+    <string name="clock_general_padding_right">End padding</string>
+    <string name="clock_general_geek">Geek mode</string>
+    <string name="clock_easy_fixed_width">Fixed TextView width</string>
+    <string name="clock_easy_fixed_width_tips">Fixed the width of TextView so that the notification icons don\'t keep changing position when the clock displays seconds.</string>
+    <string name="clock_general_custom_text_size">Customize font size (status bar clock)</string>
+    <string name="clock_general_text_size_val">Font size (status bar clock)</string>
+    <string name="ui_title_clock_geek_mode">Geek mode</string>
+    <string name="clock_geek_time_format_pattern_clock">Time format pattern (status bar)</string>
+    <string name="clock_geek_time_format_pattern_pad_clock">Date format pattern (status bar)</string>
+    <string name="clock_geek_time_format_pattern_big_time">Time format pattern (notification shade)</string>
+    <string name="clock_geek_time_format_pattern_date_time">Date format pattern (notification shade)</string>
+    <string name="clock_geek_time_format_pattern_cc_date">Date format pattern (control center)</string>
+    <string name="clock_geek_time_format_pattern_horizon">Date and time format pattern (notification shade, landscape)</string>
+    <string name="ui_title_clock_easy">Easy setup</string>
+    <string name="clock_easy_show_ampm">Display AM/PM</string>
+    <string name="clock_easy_show_ampm_tips">Valid only when using the 12-hour clock format</string>
+    <string name="clock_easy_show_leading_zero">Display leading 0</string>
+    <string name="clock_easy_show_leading_zero_tips">Recommended to be turned on when using the 24-hour clock format</string>
+    <string name="clock_easy_show_seconds">Display seconds</string>
+    <string name="clock_easy_show_seconds_tips">It will also enable the status bar to refresh every second</string>
+    <string name="ui_title_clock_font_weight" translatable="false">@string/ui_title_icon_detail_font_weight</string>
+    <string name="clock_fw_clock">Customize font weight (Status bar clock)</string>
+    <string name="clock_fw_clock_weight">Font weight (Status bar clock)</string>
+    <string name="clock_fw_pad_clock">Customize font weight (Status bar date)</string>
+    <string name="clock_fw_pad_clock_weight">Font weight (Status bar date)</string>
+    <string name="clock_fw_big_time">Customize font weight (Notification shade clock)</string>
+    <string name="clock_fw_big_time_weight">Font weight (Notification shade clock)</string>
+    <string name="clock_fw_date_time">Customize font weight (Notification shade date)</string>
+    <string name="clock_fw_date_time_weight">Font weight (Notification shade date)</string>
+    <string name="clock_fw_cc_date">Customize font weight (Control center date)</string>
+    <string name="clock_fw_cc_date_weight">Font weight (Control center date)</string>
+    <string name="clock_fw_horizontal_time">Customize font weight (Notification shade landscape clock &amp; date)</string>
+    <string name="clock_fw_horizontal_time_weight">Font weight (Notification shade landscape clock &amp; date)</string>
+    <!-- StatusBarFontPage -->
+    <string name="ui_title_font_general" translatable="false">@string/common_general</string>
+    <string name="font_hint_path">All custom font weight features (not limited to the options below) will load the variable font file specified by this path. Unless you know what you are doing and understand the possible consequences, do not modify it. \n\nIf you want to change the font without altering the weight, enable the corresponding custom font weight preference but keep the weight set to Default.</string>
+    <string name="font_general_path">Font file path</string>
+    <string name="font_general_path_tips">Unless you know what you are doing and understand the possible consequences, do not modify it.  Please use variable fonts.</string>
+    <string name="font_general_path_file" translatable="false">@string/icon_detail_stacked_signal_style_val_file</string>
+    <string name="font_general_path_path">Import from path</string>
+    <string name="font_general_path_success">Font file imported successfully</string>
+    <string name="font_general_path_failure">File does not exist or cannot be accessed. Please check the file and Root permissions!</string>
+    <string name="font_general_path_reset" translatable="false">@string/icon_tuner_position_reset_default</string>
+    <string name="font_general_path_reset_msg">Reset to \"/system/fonts/MiSansVF.ttf\"? This cannot be undone.</string>
+    <string name="font_hint_general_root">Fonts require root access to take effect automatically after reboot. Otherwise, you need to unlock the device and restart the system UI for the changes to apply.</string>
+    <string name="ui_title_font_weight" translatable="false">@string/ui_title_icon_detail_font_weight</string>
+    <string name="font_weight_lockscreen_carrier">Customize font weight (Lock screen carrier label)</string>
+    <string name="font_weight_lockscreen_carrier_weight">Font weight (Lock screen carrier name)</string>
+    <!-- IconTunerPage -->
+    <string name="icon_tuner_hide_selection_default">Default</string>
+    <string name="icon_tuner_hide_selection_show_all">Visible</string>
+    <string name="icon_tuner_hide_selection_show_statusbar">Visible in status bar</string>
+    <string name="icon_tuner_hide_selection_show_qs">Visible in Control center</string>
+    <string name="icon_tuner_hide_selection_hidden">Invisible</string>
+    <string name="icon_tuner_hide_mobile_wifi_warning">Strongly recommend that don\'t hide it!</string>
+    <string name="ui_title_icon_tuner_general" translatable="false">@string/common_general</string>
+    <string name="icon_tuner_hint_ignore_sys_hide">Starting from HyperOS 2.0.200, users can control the display of status bar icons on the \"Customize icon display\" page in Settings. However, this feature conflicts with the settings on this page, causing unexpected behavior. Therefore, it\'s strongly recommended to enable the \"Ignore system settings\" option below and manage all status bar icons directly on this page.</string>
+    <string name="icon_tuner_general_ignore_sys_hide">Ignore system settings</string>
+    <string name="icon_tuner_general_ignore_sys_hide_tips">Ignore the system setting for \"Customize icon display\"</string>
+    <string name="icon_tuner_general_detail" translatable="false">@string/page_status_bar_icon_detail</string>
+    <string name="icon_tuner_general_order">Icon order</string>
+    <string name="icon_tuner_general_order_tips">Modify icon positions by reordering their index in the display list</string>
+    <string name="icon_tuner_general_order_default" translatable="false">@string/common_default</string>
+    <string name="icon_tuner_general_order_swap">Swap mobile network and WLAN</string>
+    <string name="icon_tuner_general_order_custom" translatable="false">@string/common_custom</string>
+    <string name="icon_tuner_general_order_custom_entry" translatable="false">@string/page_status_bar_icon_order</string>
+    <string name="icon_tuner_general_auto_reorder">Auto adjust icon order</string>
+    <string name="icon_tuner_general_auto_reorder_tips">Shift hidden icons forward for smoother animation</string>
+    <string name="icon_tuner_stacked_mobile">Enable dual‑row signal icon</string>
+    <string name="icon_tuner_stacked_mobile_tips">Adds new combined signal icon and network type icon</string>
+    <string name="icon_tuner_stacked_mobile_icon">Dual‑row signal icon</string>
+    <string name="icon_tuner_stacked_mobile_icon_tips">Falls back to single‑row when only one SIM is used</string>
+    <string name="icon_tuner_stacked_mobile_type">Standalone network type</string>
+    <string name="icon_tuner_stacked_mobile_type_tips">Network type of the data SIM card</string>
+    <string name="icon_tuner_single_mobile_sim1">Custom SIM 1 signal icon</string>
+    <string name="icon_tuner_single_mobile_sim2">Custom SIM 2 signal icon</string>
+    <string name="icon_tuner_single_mobile_summary">Newly added icon, not system‑provided</string>
+    <string name="icon_tuner_custom_wifi">Custom WLAN icon</string>
+    <string name="icon_tuner_custom_wifi_tips" translatable="false">@string/ui_title_icon_detail_stacked_visibility</string>
+    <string name="ui_title_icon_tuner_network">Network</string>
+    <string name="icon_tuner_network_mobile">Mobile network</string>
+    <string name="icon_tuner_network_no_sim">No SIM card</string>
+    <string name="icon_tuner_network_airplane">Airplane mode</string>
+    <string name="icon_tuner_network_wifi">WLAN</string>
+    <string name="icon_tuner_network_hotspot">Hotspot</string>
+    <string name="icon_tuner_network_vpn">VPN</string>
+    <string name="icon_tuner_network_net_speed">Connection speed</string>
+    <string name="icon_tuner_network_warning">Warning: Hiding this icon may cause status bar icons to display abnormally!</string>
+    <string name="ui_title_icon_tuner_connectivity">Connectivity</string>
+    <string name="icon_tuner_connect_bluetooth">Bluetooth</string>
+    <string name="icon_tuner_connect_bluetooth_battery">Bluetooth device battery</string>
+    <string name="icon_tuner_connect_handle_battery">Camera grip battery</string>
+    <string name="icon_tuner_connect_nfc">NFC</string>
+    <string name="icon_tuner_connect_headset">Headset</string>
+    <string name="icon_tuner_connect_location">Location services</string>
+    <string name="ui_title_icon_tuner_device">Device</string>
+    <string name="icon_tuner_device_wireless_headset">Earphones</string>
+    <string name="icon_tuner_device_phone">Phone</string>
+    <string name="icon_tuner_device_pad">Tablet</string>
+    <string name="icon_tuner_device_pc">Computer</string>
+    <string name="icon_tuner_device_sound_box_group">Whole-house playback</string>
+    <string name="icon_tuner_device_stereo">Stereo</string>
+    <string name="icon_tuner_device_sound_box_screen">Speaker with screen</string>
+    <string name="icon_tuner_device_sound_box">Speaker</string>
+    <string name="icon_tuner_device_tv">TV</string>
+    <string name="icon_tuner_device_glasses">Glasses</string>
+    <string name="icon_tuner_device_car">Vehicle</string>
+    <string name="icon_tuner_device_camera">Camera</string>
+    <string name="icon_tuner_device_dist_compute">Computing support</string>
+    <string name="ui_title_icon_tuner_other" translatable="false">@string/common_others</string>
+    <string name="icon_tuner_other_alarm">Alarm</string>
+    <string name="icon_tuner_other_zen">DND</string>
+    <string name="icon_tuner_other_volume">Silent</string>
+    <string name="icon_tuner_other_second_space">Second space</string>
+    <string name="icon_tuner_other_hide_privacy">Hide privacy notice</string>
+    <string name="icon_tuner_position_reset_default">Reset to default</string>
+    <string name="ui_title_icon_tuner_order" translatable="false">@string/page_status_bar_icon_order</string>
+    <string name="icon_tuner_position_demo_mobile">Mobile network in demo mode</string>
+    <string name="icon_tuner_position_demo_wifi">WLAN in demo mode</string>
+    <string name="ui_title_icon_tuner_compound_icon" translatable="false">@string/icon_tuner_compound_icon</string>
+    <string name="icon_tuner_compound_icon">Combined icon</string>
+    <string name="icon_tuner_compound_icon_tips">Display multiple status icons in a single slot according to rules</string>
+    <string name="icon_tuner_compound_priority">Display priority</string>
+    <string name="icon_tuner_compound_priority_tips">Use commas \",\" to separate items, sorted from left to right in descending priority</string>
+    <string name="ui_title_icon_tuner_left_icon" translatable="false">@string/icon_tuner_left_icon</string>
+    <string name="icon_tuner_left_icon">Shift status icon to start</string>
+    <string name="icon_tuner_left_icon_tips">Move selected status icon to the position between the time and notification icons</string>
+    <string name="icon_tuner_left_icon_disabled" translatable="false">@string/common_disabled</string>
+    <string name="icon_tuner_left_icon_unlocked">Only when unlocked</string>
+    <string name="icon_tuner_left_icon_enabled" translatable="false">@string/common_enabled</string>
+    <string name="icon_tuner_left_extra_blocked_slots">Extra blocklist</string>
+    <string name="icon_tuner_left_extra_blocked_slots_tips">Block unexpected extra icons on the start side of the status bar</string>
+    <string name="icon_tuner_left_extra_blocked_slots_msg">Some modules may add extra custom status icons. When \"Shift status icon to start\" is enabled, these extra icons might appear on both sides of the status bar. \n\nEnter the slot names of these icons here to prevent them from appearing on the start side. To enter multiple names, separate them with commas (,) such as \"zen,volume\".</string>
+    <!-- IconDetailPage -->
+    <string name="ui_title_icon_detail_cellular">Cellular</string>
+    <string name="ui_title_icon_detail_wifi">WLAN</string>
+    <string name="ui_title_icon_detail_battery">Battery</string>
+    <string name="ui_title_icon_detail_net_speed">Speed</string>
+    <string name="ui_title_icon_detail_font_weight">Font weight</string>
+    <string name="ui_title_icon_detail_other" translatable="false">@string/common_others</string>
+    <!-- IconDetailPage - Mobile network -->
+    <string name="ui_title_icon_detail_cellular_general" translatable="false">@string/common_general</string>
+    <string name="icon_detail_cellular_hide_sim_auto">Smart signal icon hiding</string>
+    <string name="icon_detail_cellular_hide_sim_auto_tips">Follows the \"Data SIM\" setting and only shows the signal icon for the data SIM</string>
+    <string name="icon_detail_cellular_hide_sim_one">Hide SIM 1 signal icon</string>
+    <string name="icon_detail_cellular_hide_sim_two">Hide SIM 2 signal icon</string>
+    <string name="icon_detail_cellular_hide_activity">Hide mobile network activity</string>
+    <string name="icon_detail_cellular_hide_type">Hide mobile network type</string>
+    <string name="icon_detail_cellular_hide_roam_global">Disable roaming info display</string>
+    <string name="icon_detail_cellular_hide_roam_global_tips">Suppresses roaming status icon to appear non-roaming</string>
+    <string name="icon_detail_cellular_hide_roam">Hide roaming icon</string>
+    <string name="icon_detail_cellular_hide_roam_small">Hide small roaming icon</string>
+    <string name="ui_title_icon_detail_cellular_type">Mobile network type</string>
+    <string name="icon_detail_cellular_single">Use separate network type icon</string>
+    <string name="icon_detail_cellular_single_swap">Align separate network type icon to the right</string>
+    <string name="icon_detail_cellular_single_swap_tips">Swap positions of separate network type icon and signal icon</string>
+    <string name="icon_detail_cellular_single_size">Customize font size (separate network type icon)</string>
+    <string name="icon_detail_cellular_single_size_value">Font size (separate network type icon)</string>
+    <string name="icon_detail_cellular_type_map">Customize network type text</string>
+    <string name="icon_detail_cellular_type_map_value">Network type text</string>
+    <string name="icon_detail_cellular_type_map_msg">Use commas to separate values. \nEnter 1 item to apply the same text to all network types, or 15 items to customize each type individually. \n\nRefer to the default system mapping below for reference:\n\n,G,E,3G,H,H+,4G,4G+,,LTE,5G,5G,5G+,5GA,5G</string>
+    <string name="icon_detail_cellular_fw_type">Customize font weight (mobile network type)</string>
+    <string name="icon_detail_cellular_fw_type_weight">Font weight (mobile network type)</string>
+    <string name="icon_detail_cellular_fw_type_single">Customize font weight (separate network type icon)</string>
+    <string name="icon_detail_cellular_fw_type_single_weight">Font weight (separate network type icon)</string>
+    <string name="icon_detail_cellular_hide_vowifi">Hide VoWiFi icon</string>
+    <string name="icon_detail_cellular_hide_volte">Hide VoLTE icon</string>
+    <string name="icon_detail_cellular_hide_volte_no_service">Hide VoLTE no-service icon</string>
+    <string name="icon_detail_cellular_hide_speech_hd">Hide Speech HD icon</string>
+    <!-- IconDetailPage - Stacked mobile -->
+    <string name="ui_title_icon_detail_stacked_visibility">Icon visibility</string>
+    <string name="ui_title_icon_detail_stacked_signal">Signal icon</string>
+    <string name="icon_detail_stacked_signal_style_single">Signal icon style (single SIM)</string>
+    <string name="icon_detail_stacked_signal_style_single_val">Customize single‑SIM signal icon</string>
+    <string name="icon_detail_stacked_signal_style_single_msg">Paste SVG code containing the four IDs  signal_1, signal_2, signal_3, and signal_4.   Here, signal_2 represents the second signal bar. When the current signal strength is 2 bars, signal_1 and signal_2 will be filled using Fill opacity, while signal_3 and signal_4 will be filled using Background opacity.</string>
+    <string name="icon_detail_stacked_signal_style_stacked">Signal icon style (dual SIM)</string>
+    <string name="icon_detail_stacked_signal_style_stacked_val">Customize dual‑SIM signal icon</string>
+    <string name="icon_detail_stacked_signal_style_stacked_msg">Paste SVG code containing the eight IDs \nsignal_1_1, signal_1_2, signal_1_3, signal_1_4, \nsignal_2_1, signal_2_2, signal_2_3, and signal_2_4. \n\nHere, signal_1_2 represents the second signal bar of SIM 1. When SIM 1 has 2 bars and SIM 2 has 1 bar, signal_1_1, signal_1_2, and signal_2_1 will be filled using Fill opacity, while signal_1_3, signal_1_4, signal_2_2, signal_2_3, and signal_2_4 will be filled using Background opacity.</string>
+    <string name="icon_detail_stacked_signal_style_val_file">Import from file</string>
+    <string name="icon_detail_stacked_signal_style_val_clipboard">Import from clipboard</string>
+    <string name="icon_detail_stacked_signal_style_miui" translatable="false">HyperOS 3</string>
+    <string name="icon_detail_stacked_signal_style_ios" translatable="false">iOS 26</string>
+    <string name="icon_detail_stacked_signal_style_ios27" translatable="false">iOS 27</string>
+    <string name="icon_detail_stacked_signal_style_custom" translatable="false">@string/common_custom</string>
+    <string name="icon_detail_stacked_signal_alpha_fg">Fill opacity</string>
+    <string name="icon_detail_stacked_signal_alpha_bg">Background opacity</string>
+    <string name="icon_detail_stacked_signal_alpha_error">No service opacity</string>
+    <string name="icon_detail_stacked_signal_scale">Scale</string>
+    <string name="ui_title_icon_detail_stacked_type">Mobile network type icon</string>
+    <string name="icon_detail_stacked_type_font" translatable="false">@string/page_status_bar_font</string>
+    <string name="icon_detail_stacked_type_font_tips">4G+, 5G+, 5GA, LTE texts will use condensed style with MiSans or SF Pro</string>
+    <string name="icon_detail_stacked_type_font_default" translatable="false">@string/common_default</string>
+    <string name="icon_detail_stacked_type_font_custom" translatable="false">@string/common_custom</string>
+    <string name="icon_detail_stacked_type_font_misans" translatable="false">MiSans</string>
+    <string name="icon_detail_stacked_type_font_sfpro" translatable="false">SF Pro</string>
+    <string name="icon_detail_stacked_type_font_width_condensed">Condensed font width</string>
+    <string name="ui_title_icon_detail_stacked_small_type">Integrated network type</string>
+    <string name="icon_detail_stacked_small_type_show_single">Show on single‑SIM signal icon</string>
+    <string name="icon_detail_stacked_small_type_show_stacked">Show on dual‑SIM signal icon</string>
+    <string name="icon_detail_stacked_small_type_show_tips">The icon\'s SVG code must include a rect with id \"type_container\" in order to be displayed</string>
+    <string name="icon_detail_stacked_small_type_roaming">Show roaming status</string>
+    <string name="icon_detail_stacked_small_type_size">Font size (Integrated network type)</string>
+    <string name="icon_detail_stacked_small_type_weight">Font weight (Integrated network type)</string>
+    <string name="ui_title_icon_detail_stacked_large_type" translatable="false">@string/icon_tuner_stacked_mobile_type</string>
+    <string name="icon_detail_stacked_large_type_hide_disconnect">Hide when not connected</string>
+    <string name="icon_detail_stacked_large_type_hide_disconnect_tips">Hide the icon when mobile data is off or no data connection can be established</string>
+    <string name="icon_detail_stacked_large_type_hide_wifi">Hide when WLAN is available</string>
+    <string name="icon_detail_stacked_large_type_size">Font size (Standalone network type)</string>
+    <string name="icon_detail_stacked_large_type_weight">Font weight (Standalone network type)</string>
+    <string name="icon_detail_stacked_large_type_vertical_offset">Vertical offset</string>
+    <string name="icon_detail_stacked_large_type_vertical_offset_tips">Control the vertical offset of the icon. Positive values move it downward, negative values move it upward.</string>
+    <!-- IconDetailPage - WLAN -->
+    <string name="icon_detail_wifi_standard">WLAN standard</string>
+    <string name="icon_detail_wifi_standard_default" translatable="false">@string/icon_tuner_hide_selection_default</string>
+    <string name="icon_detail_wifi_standard_hide">Always hide</string>
+    <string name="icon_detail_wifi_standard_show">Always show</string>
+    <string name="icon_detail_wifi_standard_custom" translatable="false">@string/common_custom</string>
+    <string name="icon_detail_wifi_standard_map">WLAN standard mapping</string>
+    <string name="icon_detail_wifi_standard_map_msg">Enter 1 integer to apply it to Wi-Fi 4–8, or 5 comma-separated integers for Wi-Fi 4, 5, 6, 7, and 8. Use -1 to hide a standard.\n\nDefault mapping:\n4,5,6,7,8</string>
+    <string name="icon_detail_wifi_padding_custom">Custom WLAN horizontal padding</string>
+    <string name="icon_detail_wifi_padding_start">Start padding</string>
+    <string name="icon_detail_wifi_padding_end">End padding</string>
+    <string name="icon_detail_wifi_hide_activity">Hide WLAN activity</string>
+    <string name="icon_detail_wifi_right_activity">Align WLAN activity to the right</string>
+    <string name="icon_detail_wifi_hide_unavailable">Hide WLAN icon when unavailable</string>
+    <string name="icon_detail_wifi_signal_enabled">Enable custom WLAN signal icon</string>
+    <string name="icon_detail_wifi_signal_enabled_tips">Hides the system WLAN icon and adds a custom WLAN signal icon</string>
+    <string name="icon_detail_wifi_signal_style">WLAN signal icon style</string>
+    <string name="icon_detail_wifi_signal_style_hyperos2" translatable="false">HyperOS 2</string>
+    <string name="icon_detail_wifi_signal_style_custom_file">Custom WLAN signal icon</string>
+    <!-- IconDetailPage - Battery -->
+    <string name="icon_detail_battery_bar_style">Battery indicator (Status bar)</string>
+    <string name="icon_detail_battery_cc_style">Battery indicator (Control center)</string>
+    <string name="icon_detail_battery_style_default" translatable="false">@string/icon_tuner_hide_selection_default</string>
+    <string name="icon_detail_battery_style_default_tips">Follow system settings</string>
+    <string name="icon_detail_battery_style_icon_only">Icon only</string>
+    <string name="icon_detail_battery_style_icon_only_tips">Graphical</string>
+    <string name="icon_detail_battery_style_text_in">Percentage inside</string>
+    <string name="icon_detail_battery_style_text_in_tips">Percentage (in the icon)</string>
+    <string name="icon_detail_battery_style_line">Top bar</string>
+    <string name="icon_detail_battery_style_line_tips">Fallback to icon only if unsupported</string>
+    <string name="icon_detail_battery_style_text_out">Percentage outside</string>
+    <string name="icon_detail_battery_style_text_out_tips">Percentage (next to the icon)</string>
+    <string name="icon_detail_battery_style_text_only">Percentage only</string>
+    <string name="icon_detail_battery_style_text_only_tips">Percentage (text only)</string>
+    <string name="icon_detail_battery_style_hidden" translatable="false">@string/icon_tuner_hide_selection_hidden</string>
+    <string name="icon_detail_battery_style_hidden_tips">Fully hidden (including charging icon)</string>
+    <string name="icon_detail_battery_layout_custom">Customize icon horizontal padding</string>
+    <string name="icon_detail_battery_padding_start">Start padding</string>
+    <string name="icon_detail_battery_padding_end">End padding</string>
+    <string name="icon_detail_battery_hide_charge">Hide charging icon</string>
+    <string name="icon_detail_battery_hide_charge_tips">Only applies to Percentage (in the icon) and Percentage (text only) styles</string>
+    <string name="ui_title_icon_detail_batter_percentage">Percentage</string>
+    <string name="icon_detail_battery_percent_mark_style">Percentage symbol style</string>
+    <string name="icon_detail_battery_percent_mark_style_default" translatable="false">@string/icon_tuner_hide_selection_default</string>
+    <string name="icon_detail_battery_percent_mark_style_uni">Match number size</string>
+    <string name="icon_detail_battery_percent_mark_style_hidden" translatable="false">@string/icon_tuner_hide_selection_hidden</string>
+    <string name="icon_detail_battery_percent_out_size">Customize font size (Percentage outside)</string>
+    <string name="icon_detail_battery_percent_out_size_value">Font size (Percentage outside)</string>
+    <string name="icon_detail_battery_percent_in_size">Customize font size (Percentage inside)</string>
+    <string name="icon_detail_battery_percent_in_size_value">Font size (Percentage inside)</string>
+    <string name="icon_detail_battery_fw_percent_out">Customize font weight (Percentage outside)</string>
+    <string name="icon_detail_battery_fw_percent_out_weight">Font weight (Percentage outside)</string>
+    <string name="icon_detail_battery_fw_percent_mark">Customize font weight (Percentage symbol)</string>
+    <string name="icon_detail_battery_fw_percent_mark_weight">Font weight (Percentage symbol)</string>
+    <string name="icon_detail_battery_fw_percent_in">Customize font weight (Percentage inside)</string>
+    <string name="icon_detail_battery_fw_percent_in_weight">Font weight (Percentage inside)</string>
+    <!-- IconDetailPage - Network Speed -->
+    <string name="icon_detail_net_speed_style">Connection speed style</string>
+    <string name="icon_detail_net_speed_style_default" translatable="false">@string/icon_tuner_hide_selection_default</string>
+    <string name="icon_detail_net_speed_style_separate">Split (plain text)</string>
+    <string name="icon_detail_net_speed_style_separate_arrow">Split (arrow)</string>
+    <string name="icon_detail_net_speed_style_separate_tri_filled">Split (filled triangle)</string>
+    <string name="icon_detail_net_speed_style_separate_tri_outline">Split (adaptive triangle)</string>
+    <string name="icon_detail_net_speed_unit_style">Speed unit style</string>
+    <string name="icon_detail_net_speed_unit_style_k" translatable="false">6.18K</string>
+    <string name="icon_detail_net_speed_unit_style_kb" translatable="false">6.18KB</string>
+    <string name="icon_detail_net_speed_unit_style_kbps" translatable="false">6.18KB/s</string>
+    <string name="icon_detail_net_speed_refresh">Refresh every second</string>
+    <string name="icon_detail_net_speed_refresh_tips">Calculates connection speed every second instead of every four seconds</string>
+    <string name="icon_detail_net_speed_refresh_interval">Refresh interval</string>
+    <string name="icon_detail_net_speed_refresh_interval_default">System default (4 seconds)</string>
+    <string name="icon_detail_net_speed_refresh_interval_1_second">1 second</string>
+    <string name="icon_detail_net_speed_refresh_interval_2_seconds">2 seconds</string>
+    <string name="icon_detail_net_speed_refresh_interval_3_seconds">3 seconds</string>
+    <string name="icon_detail_net_speed_refresh_interval_4_seconds">4 seconds</string>
+    <string name="icon_detail_net_speed_refresh_interval_5_seconds">5 seconds</string>
+    <string name="icon_detail_net_speed_refresh_interval_6_seconds">6 seconds</string>
+    <string name="icon_detail_net_speed_scale">Scale</string>
+    <string name="icon_detail_net_speed_fw_num">Customize font weight (Numeric)</string>
+    <string name="icon_detail_net_speed_fw_num_weight">Font weight (Numeric)</string>
+    <string name="icon_detail_net_speed_fw_unit">Customize font weight (Unit)</string>
+    <string name="icon_detail_net_speed_fw_unit_weight">Font weight (Unit)</string>
+    <string name="icon_detail_net_speed_fw_separate">Customize font weight</string>
+    <string name="icon_detail_net_speed_fw_separate_weight">Font weight</string>
+    <!-- MediaControlStylePage -->
+    <string name="ui_title_media_bg">Background</string>
+    <string name="media_bg_custom">Background style</string>
+    <string name="media_bg_custom_default" translatable="false">@string/common_default</string>
+    <string name="media_bg_custom_art">Cover art</string>
+    <string name="media_bg_custom_blur">Blurred cover</string>
+    <string name="media_bg_custom_radial_gradient">Radial gradient</string>
+    <string name="media_bg_custom_linear_gradient">Linear gradient</string>
+    <string name="media_bg_use_notif_corner_radius">Use notification corner radius</string>
+    <string name="media_bg_ambient_light_default" translatable="false">@string/common_default</string>
+    <string name="media_bg_ambient_light_hidden" translatable="false">@string/common_disabled</string>
+    <string name="media_bg_ambient_light_custom" translatable="false">@string/common_custom</string>
+    <string name="media_bg_ambient_light">Ambient light effect</string>
+    <string name="media_bg_ambient_light_tips">Provides a music glow effect similar to the Dynamic Island. When enabled, always dark mode is recommended.</string>
+    <string name="media_bg_always_dark">Always dark mode</string>
+    <string name="media_bg_always_dark_tips">Ignores system light/dark mode and keeps media controls in black background with white text.</string>
+    <string name="media_bg_ambient_light_opt">Optimize color picking</string>
+    <string name="media_bg_ambient_light_opt_tips">Uses the Material 3 Monet color system and applies different colors in light and dark modes.</string>
+    <string name="media_bg_use_anim">Animations</string>
+    <string name="media_bg_use_anim_tips">Enable animations for color transitions and resizing. This may affect performance!</string>
+    <string name="media_bg_blur_radius">Blur radius</string>
+    <string name="media_bg_auto_color_reverse">Auto-reverse color</string>
+    <string name="ui_title_media_layout">Layout</string>
+    <string name="media_lyt_album">Album cover</string>
+    <string name="media_lyt_album_default" translatable="false">@string/common_default</string>
+    <string name="media_lyt_album_hide_app">No app icon</string>
+    <string name="media_lyt_album_gone">Invisible</string>
+    <string name="media_lyt_unlock_action">Show all action buttons</string>
+    <string name="media_lyt_unlock_action_tips">This option affects both notifications and Dynamic Island</string>
+    <string name="media_lyt_left_actions">Action buttons left-aligned</string>
+    <string name="media_lyt_actions_order">Sequence of action buttons</string>
+    <string name="media_lyt_actions_order_default" translatable="false">@string/common_default</string>
+    <string name="media_lyt_actions_order_custom_right">Custom buttons on the right side</string>
+    <string name="media_lyt_actions_order_play_left">Play button on the far left</string>
+    <string name="media_lyt_hide_time">Hide time</string>
+    <string name="media_lyt_hide_time_tips">Hide the elapsed time and total time next to the progress bar</string>
+    <string name="media_lyt_hide_seamless">Hide seamless button</string>
+    <string name="media_lyt_hide_seamless_tips">Hide the device switch button at the top right of the media control</string>
+    <string name="media_lyt_header_margin">Header margin top</string>
+    <string name="media_lyt_header_padding">Header padding</string>
+    <string name="ui_title_media_elements">Elements</string>
+    <string name="media_elm_album_shadow">Album cover shadow</string>
+    <string name="media_elm_album_flip_anim">Album cover flip animation</string>
+    <string name="media_elm_album_flip_anim_tips">Flip animation of the album cover when switching songs.</string>
+    <string name="media_elm_text_size">Modify text font size</string>
+    <string name="media_elm_text_size_title">Title</string>
+    <string name="media_elm_text_size_artist">Artist</string>
+    <string name="media_elm_text_size_time">Time</string>
+    <string name="media_elm_thumb_style">Thumb style</string>
+    <string name="media_elm_thumb_style_default" translatable="false">@string/common_default</string>
+    <string name="media_elm_thumb_style_gone">Invisible</string>
+    <string name="media_elm_thumb_style_vbar">Vertical bar</string>
+    <string name="media_elm_prog_style">Progress bar style</string>
+    <string name="media_elm_prog_style_default" translatable="false">@string/common_default</string>
+    <string name="media_elm_prog_style_custom" translatable="false">@string/common_custom</string>
+    <string name="media_elm_prog_style_squiggly">Squiggly</string>
+    <string name="media_elm_prog_width">Progress bar thickness</string>
+    <string name="media_elm_prog_round">Rounded progress bar</string>
+    <string name="media_elm_prog_comet">Comet progress bar</string>
+    <string name="media_elm_prog_comet_tips">A progress bar with a fading transparency effect, like a comet trailing a small tail.</string>
+    <string name="media_hint_ambient_lighting">The ambient light effect requires high performance and resource usage, which may cause issues such as device overheating. Please enable with caution. If any problems occur, it is recommended to disable this feature.</string>
+    <string name="media_hint_advanced_textures">Since Advanced textures have been set as the default background for media controls, the corresponding option has been removed. If you need to adjust the effects of Advanced textures, use a Magisk module or the system theme to modify the blur parameters.</string>
+</resources>

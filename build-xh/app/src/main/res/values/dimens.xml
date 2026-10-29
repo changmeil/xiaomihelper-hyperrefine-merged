@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header_icon_size">28.0dp</dimen>
+    <dimen name="miuix_btn_size">26.0dp</dimen>
+    <dimen name="media_session_height_expanded">184.0dp</dimen>
+</resources>

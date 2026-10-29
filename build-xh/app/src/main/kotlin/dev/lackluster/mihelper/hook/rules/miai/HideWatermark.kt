@@ -1,0 +1,69 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ *
+ * This file is part of XiaomiHelper project
+
+ * This file references HyperCeiler <https://github.com/ReChronoRain/HyperCeiler/blob/main/app/src/main/java/com/sevtinge/hyperceiler/module/hook/voiceassist/DisableChatWatermark.java>
+ * Copyright (C) 2023-2024 HyperCeiler Contributions
+ * Add more hooks, modified by HowieHChen (howie.dev@outlook.com) on 03/20/2024
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package dev.lackluster.mihelper.hook.rules.miai
+
+import dev.lackluster.mihelper.data.preference.Preferences
+import dev.lackluster.mihelper.hook.base.StaticHooker
+import dev.lackluster.mihelper.hook.utils.DexKit
+import dev.lackluster.mihelper.hook.utils.RemotePreferences.get
+import dev.lackluster.mihelper.hook.utils.ifTrue
+import org.luckypray.dexkit.query.enums.StringMatchType
+
+object HideWatermark : StaticHooker(){
+    private val addWatermark by lazy {
+        DexKit.findMethodWithCache("add_watermark") {
+            matcher {
+                addUsingString("add watermark", StringMatchType.Equals)
+            }
+        }
+    }
+    private val metAiImageWaterMark by lazy {
+        DexKit.findMethodWithCache("image_watermark") {
+            matcher {
+                paramCount = 2
+                paramTypes("android.content.Context", "android.graphics.Bitmap")
+                returnType = "android.graphics.Bitmap"
+                addUsingString("composeAiImageWatermark", StringMatchType.StartsWith)
+            }
+        }
+    }
+
+    override fun onInit() {
+        Preferences.MiAi.HIDE_WATERMARK.get().also {
+            updateSelfState(it)
+        }.ifTrue {
+            addWatermark
+            metAiImageWaterMark
+        }
+    }
+
+    override fun onHook() {
+        addWatermark?.getMethodInstance(classLoader)?.hook {
+            result(null)
+        }
+        metAiImageWaterMark?.getMethodInstance(classLoader)?.hook {
+            result(getArg(1))
+        }
+    }
+}
