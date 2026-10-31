@@ -267,16 +267,6 @@ private fun MainPageContent(
             )
         }
         itemPreferenceGroup(
-            key = "MAIN_NOTIF",
-            title = "通知",
-        ) {
-            SwitchPreference(
-                key = Preferences.SystemUI.NotifCenter.DISABLE_FOCUS_WHITELIST,
-                title = "移除焦点通知白名单",
-                summary = "任何应用的通知都能以焦点通知 / 超级岛样式显示，不再受系统白名单限制。改动需重启系统界面",
-            )
-        }
-        itemPreferenceGroup(
             key = "MAIN_LAUNCHER",
             title = "桌面文件夹",
         ) {

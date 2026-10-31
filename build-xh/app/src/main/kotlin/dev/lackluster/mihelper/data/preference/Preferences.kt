@@ -272,7 +272,6 @@ object Preferences {
         object NotifCenter {
             val ALWAYS_ALLOW_FREEFORM = PreferenceKey("systemui_notif_freeform", false)
             val DISABLE_NOTIF_WHITELIST = PreferenceKey("systemui_notif_no_whitelist", false)
-            val DISABLE_FOCUS_WHITELIST = PreferenceKey("systemui_notif_focus_no_whitelist", false)
             val SUPPRESS_FOLD_NOTIF = PreferenceKey("systemui_notif_suppress_fold", false)
 //            val CLOCK_PAD_ANIM = "statusbar_clock_pad_anim"
             val MIUIX_EXPAND_BUTTON = PreferenceKey("systemui_notif_miuix_expand", false)

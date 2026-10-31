@@ -21,7 +21,6 @@ import dev.lackluster.mihelper.hook.rules.systemui.notif.ExpandNotification
 import dev.lackluster.mihelper.hook.rules.systemui.notif.LayoutAndRankOpt
 import dev.lackluster.mihelper.hook.rules.systemui.notif.MiuiXExpandButton
 import dev.lackluster.mihelper.hook.rules.systemui.notif.NotifFreeform
-import dev.lackluster.mihelper.hook.rules.systemui.notif.FocusNotifWhitelist
 import dev.lackluster.mihelper.hook.rules.systemui.notif.NotifWhitelist
 import dev.lackluster.mihelper.hook.rules.systemui.plugin.PluginFactory
 import dev.lackluster.mihelper.hook.rules.systemui.statusbar.BatteryIndicator
@@ -53,8 +52,7 @@ import dev.lackluster.mihelper.hook.rules.systemui.statusbar.StatusBarTapGesture
  * - [StackedMobileIcon]：双排堆叠信号图标本体；
  * - [HideCellularIcon]：开启双排后隐藏系统原生的单卡信号图标（否则新旧两套同时出现）；
  * - [StatusBarIconTint]：给自绘的 ALPHA_8 位图套上 SystemUI 的明暗反色 Tint
- *   （不挂会保持纯黑，深色壁纸下看不见）；
- * - [FocusNotifWhitelist]：移除焦点通知应用白名单，任意应用都能用焦点通知 / 超级岛样式。
+ *   （不挂会保持纯黑，深色壁纸下看不见）。
  */
 object SystemUI : StaticHooker() {
     override fun onInit() {
@@ -64,6 +62,5 @@ object SystemUI : StaticHooker() {
         attach(StackedMobileIcon)
         attach(HideCellularIcon)
         attach(StatusBarIconTint)
-        attach(FocusNotifWhitelist)
     }
 }

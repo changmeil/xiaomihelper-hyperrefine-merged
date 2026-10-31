@@ -1,5 +1,6 @@
 package cn.ianzb.hyperrefine.hook.xposed
 
+import android.util.Log
 import cn.ianzb.hyperrefine.hook.aod.AodBridgeLoad
 import cn.ianzb.hyperrefine.hook.base.BaseLoad
 import cn.ianzb.hyperrefine.hook.base.PackageTarget
@@ -33,18 +34,30 @@ class HfEntry : XposedModule() {
     private var isEnabled: Boolean = true
 
     override fun onModuleLoaded(param: XposedModuleInterface.ModuleLoadedParam) {
-        HookHelper.init(this)
-        HookPrefs.init(getRemotePreferences(Preferences.NAME))
+        // 第一条日志不依赖任何 libxposed API，也不依赖配置层：
+        // 目标进程里如果后面任何一步抛异常，这条也能证明模块确实被注入过，
+        // 从而把「根本没注入（作用域没勾）」和「注入后提前崩了」区分开。
+        val process = runCatching { param.processName }.getOrNull()
+        val isSystem = runCatching { param.isSystemServer }.getOrDefault(false)
+        Log.i(TAG, "module loaded: process=$process, systemServer=$isSystem")
+
+        runCatching { HookHelper.init(this) }
+            .onFailure { Log.e(TAG, "HookHelper.init failed", it) }
+        runCatching { HookPrefs.init(getRemotePreferences(Preferences.NAME)) }
+            .onFailure { Log.e(TAG, "HookPrefs.init failed", it) }
         // 内置第三方模块（微信小程序兼容 / 支付宝极速模式）需要 APK 路径来读 assets 里的 dex。
-        EmbeddedModules.attach(
-            this,
-            runCatching { getModuleApplicationInfo()?.sourceDir }.getOrNull(),
-            param.processName,
-            param,
-        )
+        runCatching {
+            EmbeddedModules.attach(
+                this,
+                runCatching { getModuleApplicationInfo()?.sourceDir }.getOrNull(),
+                process.orEmpty(),
+                param,
+            )
+        }.onFailure { Log.e(TAG, "EmbeddedModules.attach failed", it) }
+
         // 跟随宿主的模块总开关：关掉时这 7 个功能也一起停，避免出现「主开关关了还在生效」。
-        isEnabled = HookPrefs.getBoolean(HOST_MASTER_SWITCH, true)
-        HookHelper.log("HyperRefine bridge loaded in ${param.processName}, enabled=$isEnabled")
+        isEnabled = runCatching { HookPrefs.getBoolean(HOST_MASTER_SWITCH, true) }.getOrDefault(true)
+        HookHelper.log("HyperRefine bridge loaded in $process, enabled=$isEnabled")
     }
 
     override fun onPackageReady(param: XposedModuleInterface.PackageReadyParam) {
@@ -72,6 +85,9 @@ class HfEntry : XposedModule() {
     }
 
     private companion object {
+        /** 原生日志标签：不依赖框架、不依赖配置，任何进程都能打。 */
+        const val TAG = "HyperRefine"
+
         /** 宿主 XiaomiHelper 的模块总开关键（`Preferences.Module.MODULE_ENABLED`）。 */
         const val HOST_MASTER_SWITCH = "enable_module"
     }

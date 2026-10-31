@@ -23,7 +23,6 @@
 | 双排信号图标 | XiaomiHelper 原本的图标定制页，已裁到只剩「移动网络」一个页签：总开关、单卡/双卡风格（MIUI / iOS / iOS27 / 自定义 SVG）、前景/背景/错误色透明度、缩放、左右间距、网络类型字体等 |
 | 图标顺序（状态栏分组内） | 排序模式（默认 / 互换移动网络与 WLAN / 自定义）+ 拖拽排序页 + 自动重排开关，保存后重启系统界面生效 |
 | 桌面文件夹 | 大文件夹内图标大小自适应（3x3 九宫格 / 2x2）、禁用文件夹点击缩放动画、禁用文件夹内图标点击遮罩 |
-| 通知 | 移除焦点通知白名单（任意应用都能以焦点通知 / 超级岛样式展示） |
 | 融合设备中心 | 加快图标加载 / 隐藏省略号 / 缩小设备点击范围 |
 | 安全服务 | 隐藏进入、退出快充加速提醒 |
 | 设备互联 | 妙播音频低延迟 |
@@ -34,7 +33,9 @@
 > 用「assets 内置 dex + 运行时装载 + de.robv 兼容桩」的方式接入，作用域扩到
 > `com.tencent.mm`、`com.eg.android.AlipayGphone`，详见第九节。
 >
-> v7（2026-10-29）：新增「通知」分组 → 移除焦点通知白名单（`FocusNotifWhitelist`，见第八节）。
+> v11（2026-10-31）：**移除**了 v7 的「移除焦点通知白名单」功能
+> （`FocusNotifWhitelist` / `systemui_notif_focus_no_whitelist` 及界面上的 `MAIN_NOTIF` 分组已全部删除）。
+> 同一版曾并入「学习通开屏替换」，v13 已整体撤掉，原因见第八节。
 >
 > v6（2026-10-28）：退出快充提醒仍弹出 → 改为「方法级全量 hook + NotificationManager 发送级拦截」两层，
 > 不再依赖混淆方法名，详见第七节。
@@ -69,7 +70,7 @@
 | 妙播音频低延迟 | `com.milink.service` | HyperRefine `MiPlayDelayHook` |
 | 全屏 AOD 智能显示修复 | `system`（system_server） | HyperRefine `AodDozeBridgeHook` |
 
-`scope.list` 只有五行：`system`、`com.android.systemui`、`com.miui.securitycenter`、`com.milink.service`、`com.miui.home`。
+`scope.list` 共七行：`system`、`com.android.systemui`、`com.miui.securitycenter`、`com.milink.service`、`com.miui.home`、`com.tencent.mm`、`com.eg.android.AlipayGphone`。
 XiaomiHelper 原本 32 个包其余全部去掉 —— 界面看不到的功能，注入也不给它开口。
 
 ## 二、怎么合的（三处关键设计）
@@ -153,9 +154,8 @@ XiaomiHelper 的偏好文件是 `config`（`Preferences.NAME`），hook 侧通�
   其余图标显隐、复合图标、左侧容器等分组删掉（对应 hooker 未挂载，留着就是死开关）；
 - `app/screen/systemui/icon/detail/IconDetailPage.kt`：如上裁剪；
 - `hook/HookEntry.kt`、`hook/scopes/SystemUI.kt`：如上裁剪 / 补回；
-- `hook/rules/systemui/notif/FocusNotifWhitelist.kt`（v7 新增）：移除焦点通知白名单，
-  挂 `NotificationSettingsManager#canShowFocusState` / `#canShowFocusStateApp`；
-- `app/screen/MainPage.kt` 的 `MAIN_NOTIF` 分组（v7 新增）：上面那条开关的入口；
+- `hook/rules/systemui/notif/FocusNotifWhitelist.kt`（v11 删除）、`app/screen/MainPage.kt` 的 `MAIN_NOTIF` 分组（v11 删除）、
+  `Preferences.SystemUI.NotifCenter.DISABLE_FOCUS_WHITELIST`（v11 删除）；
 - `app/proguard-rules.pro`：`-keep` 掉新入口与两个基类名（否则入口会被混淆成 `er0`，
   虽然 `-adaptresourcefilecontents` 能自动改写 `java_init.list`，保留原名方便看日志）；
 - `app/stableIds.txt` 从仓库根目录复制了一份（构建脚本里的 `--stable-ids` 是相对 `app/` 解析的）。
@@ -283,26 +283,26 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 - 一条 `seen` 都没有 → 说明这条通知不是安全服务发的，得再看是哪个包（大概率是
   `com.miui.powerkeeper`），那种情况要再加作用域。
 
-## 八、v7：移除焦点通知白名单
+## 八、已撤掉：学习通开屏替换（v11 合入 → v13 移除）
 
-新功能，主界面「通知」分组。焦点通知（超级岛 / 锁屏上的焦点卡片）默认只对系统白名单内的
-应用开放，判定入口是 `com.miui.systemui.notification.NotificationSettingsManager` 上的：
+v11 曾把 ChaoxingSplash 1.9.4 的核心逻辑源码级并入：`cn/ianzb/hyperrefine/hook/splash/`（4 个文件）、
+`assets/splash_default.jpg`、开关键 `chaoxing_splash_replace`、作用域 `com.chaoxing.mobile`。
+v13 全部删掉，界面上的「学习通开屏替换」开关与作用域一并撤除。
 
-- `canShowFocusState(pkg, channelId)`：这条通知能不能以焦点通知样式展示；
-- `canShowFocusStateApp(pkg, channelId)`：这个应用有没有焦点通知能力。
+放弃的原因（实测，不是猜的）：
 
-打开开关后两个方法都无条件返回「允许」——按方法真实返回类型给 `1` 或 `true`，
-避免不同版本上 `int` / `boolean` 不一致导致 `ClassCastException` 把系统界面搞崩。
+1. **冷启动前 ~2.6 秒的上屏画面不是学习通画的**。`am start` 后 WindowManager 创建
+   `Splash Screen com.chaoxing.mobile`，这一段由 **system_server** 用主题 `CxTheme.Splash` 的
+   `windowBackground = @drawable/splash` 渲染。应用侧 hook 做得再早也没用：
+   实测 48.29s 学习通进程内已替换成功，屏幕到 49.01s 启动窗口消失才切图。
+2. **要补这一段就必须注入 `system`（system_server）**。当时作用域被 `staticScope=true` 钉在首次安装的
+   快照上，`system` 从没进过 LSPosed 的库；即便把 `staticScope` 改成 `false`，还得在管理器里手动补勾
+   并重启验证。为了一张开屏图去动系统框架作用域，风险与收益不成比例，就此停手。
+3. **代价端太大**：要在 SystemUI / system_server 里挂 `Resources#loadDrawable` —— 全机资源加载的
+   公共路径，任何一次误判影响的是整机，而不是一个 App。
 
-配套：`Preferences.SystemUI.NotifCenter.DISABLE_FOCUS_WHITELIST`
-（键名 `systemui_notif_focus_no_whitelist`）、`SystemUI#onInit` 里 `attach(FocusNotifWhitelist)`。
-属于 StaticHooker，**改完要重启系统界面**。作用域不需要新增，仍用 `com.android.systemui`。
-
-日志（tag 为 `FocusNotifWhitelist`）：
-
-- `focus whitelist unlocked, hooked=2` → 两个方法都挂上了；
-- `canShowFocusState / canShowFocusStateApp not found ...` → 这版系统界面换了类名或方法名，
-  把这行日志给我，我按你机器的实际名字改。
+留在代码里的唯一遗产是 `module.prop` 的 `staticScope=false`（原来是 `true`）。它不是学习通专用的：
+钉死作用域会让以后**任何**新增包都只能靠卸载重装生效，解开后覆盖安装就能重读 `scope.list`，所以保留。
 
 ## 九、v8：并入两个第三方模块（微信小程序兼容 / 支付宝极速模式）
 
@@ -354,8 +354,8 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 - 主界面新增**「第三方应用」**分组，两个开关：`embed_wechat_compat`、`embed_alipay_speed`（默认都关）；
 - hook 在目标进程启动时装，**改完开关必须重启微信 / 支付宝**，杀进程不够的是配置缓存那一层，
   正常划掉后台再打开就行；
-- `scope.list` 增加两行：`com.tencent.mm`、`com.eg.android.AlipayGphone`。本模块是 `staticScope=true`，
-  LSPosed 会按声明注入，但升级后作用域列表有时仍是旧快照——如果你在 LSPosed 里看到这两项没勾，手动勾上再重启手机；
+- `scope.list` 增加两行：`com.tencent.mm`、`com.eg.android.AlipayGphone`。本模块是 `staticScope=false`，
+  作用域可以在 LSPosed 管理器里自由编辑；如果升级后看到这两项没勾，手动勾上再重启手机；
 - 支付宝那条会拦 `ActivityManager.isLowRamDevice`、电池温度、`SystemProperties` 等，
   等于在支付类 App 里伪造系统状态。**它能改变支付宝的降级判断，但不碰支付与风控逻辑**；
   如果支付宝因此弹出环境异常提示，把开关关掉即可，不会留下残留（hook 只在本进程内生效）。
@@ -371,7 +371,7 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 
 先看三件事，按顺序基本能定位到底卡在哪一层：
 
-1. **LSPosed 作用域**。本模块 `staticScope=true`，作用域是安装时从 `scope.list` 读的快照。
+1. **LSPosed 作用域**。本模块 `staticScope=false`，作用域以管理器里勾选的状态为准。
    升级 APK 后如果 LSPosed 里「微信 / 支付宝」没打勾，模块根本不会被注入到目标进程，
    代码写得再对也没用。手动勾上、重启手机。
 2. **开关 + 冷启动**。开关是通过 remote preferences 读的，装 hook 的时机是目标进程启动时，
