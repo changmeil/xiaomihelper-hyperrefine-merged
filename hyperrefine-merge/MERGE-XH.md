@@ -1,6 +1,6 @@
 # 以 XiaomiHelper 为底座：双排信号图标 + HyperRefine 的 7 个功能
 
-产物：**`XiaomiHelper-26.08-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.08` / versionCode `26080`）
+产物：**`XiaomiHelper-26.09-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.09` / versionCode `26090`）
 源码树：`build-xh/`（XiaomiHelper master @ 2026-10-25 + hyperx-compose 子模块 + 我写的 `cn.ianzb.hyperrefine.hook` 包）
 状态：`assembleDebug` / `assembleRelease` 均 `BUILD SUCCESSFUL`，R8 混淆 + 资源压缩已开启，签名验证通过。
 
@@ -29,6 +29,10 @@
 | 息屏 | 全屏 AOD 智能显示修复 |
 | 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图，冷启动第一帧起生效）、哔哩哔哩媒体控制隐藏 |
 
+> v18（2026-11-02）：裁掉内置图自带的左右窄边框 —— 这张图 x=0..7 是约 `(96,97,91)` 的深灰竖边，
+> 按宽度铺满屏幕后就是两条竖线。`SplashDrawable` 改为绘制时用 src rect 跳过左右脏边（最多 1%、上限 24px，
+> 一路脏到上限就判定不是边框、不裁），日志 `trim edge border: left=8 right=8`。
+>
 > v17（2026-11-02）：修深色模式下的开屏图 —— 系统会给 `windowBackground` 的 drawable 设
 > `PorterDuffColorFilter` 压暗，而 `SplashDrawable.setColorFilter` 原来只把它应用到图片 paint、
 > 没应用到留白 paint，结果「中间发灰、上下留白雪白」。现在整体忽略该 filter，图片与留白保持同一套原图配色。
@@ -326,6 +330,14 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 2. **Switches 在拦截时判**，不在安装时判。system_server 启动早于 remote preferences 就绪，
    安装时读到默认值就永久不装 —— 症状和「模块根本没注入」完全一样，极难区分。
    `HfEntry` 里对 `system` / `com.android.systemui` 是**无条件装 hook**，开关 1 秒缓存、进来再判。
+
+### 坑：左右两条竖线（v18 修）
+
+内置图 `splash_default.jpg` 本身左右各带一条约 8px 的深灰竖边（原图 x=0..7 是 `(96,97,91)`，
+第 8 列才是 253 的白）。fit-center 按宽度铺满后，这两条边就是屏幕上的两条竖线。
+`SplashDrawable` 在构造时用 [`computeEdgeTrim`] 检测：从左右边缘往内数「与背景色差异 > 16」的像素，
+三条扫描线里两条已经回到背景色就停；最多裁 1%（上限 24px），一路脏到上限说明不是边框、放弃。
+裁剪通过 `drawBitmap(bitmap, srcRect, dstRect, paint)` 实现，不复制 bitmap、不额外占内存。
 
 ### 坑：深色模式下开屏图「中间灰、上下白」（v17 修）
 

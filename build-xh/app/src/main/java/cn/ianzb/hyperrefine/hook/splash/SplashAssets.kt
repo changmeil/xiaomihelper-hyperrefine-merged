@@ -5,10 +5,10 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.ColorFilter
-import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.Rect
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.Log
 import java.util.zip.ZipFile
@@ -125,7 +125,49 @@ private fun marginColorOf(b: Bitmap): Int {
 }
 
 /**
+ * 有些图导出时左右各带一条 1~20px 的深色窄边（这张内置图就带），铺满屏幕后会变成两条竖线。
+ * 这里把「不属于背景色」的左右窄边裁掉；一路脏到上限就认为不是边框，不动。
+ *
+ * 只处理左右：上下多出来的是我们自己填的留白，本来就和图片边缘同色。
+ */
+private fun computeEdgeTrim(b: Bitmap): Pair<Int, Int> {
+    val w = b.width
+    val h = b.height
+    if (w < 64 || h < 64) return 0 to 0
+    val maxTrim = (w / 100).coerceIn(4, 24)
+
+    // 背景色取 3x3 采样里亮度居中的那个（正中心常常压在文字上）
+    val samples = ArrayList<Int>(9)
+    for (i in 1..3) for (j in 1..3) samples += b.getPixel(w * i / 4, h * j / 4)
+    samples.sortBy { 0.299 * Color.red(it) + 0.587 * Color.green(it) + 0.114 * Color.blue(it) }
+    val base = samples[samples.size / 2]
+
+    fun sameAsBase(pixel: Int): Boolean =
+        kotlin.math.abs(Color.red(pixel) - Color.red(base)) < 16 &&
+            kotlin.math.abs(Color.green(pixel) - Color.green(base)) < 16 &&
+            kotlin.math.abs(Color.blue(pixel) - Color.blue(base)) < 16
+
+    fun scan(fromLeft: Boolean): Int {
+        for (t in 0 until maxTrim) {
+            var dirty = 0
+            for (frac in 1..3) {
+                val y = h * frac / 4
+                val x = if (fromLeft) t else w - 1 - t
+                if (!sameAsBase(b.getPixel(x, y))) dirty++
+            }
+            // 三条扫描线里两条已经是背景色 → 窄边到此为止
+            if (dirty < 2) return t
+        }
+        return 0
+    }
+
+    return scan(true) to scan(false)
+}
+
+/**
  * 等比缩放 + 居中（fit-center）：整图完整可见、不裁切、不变形，剩余空间填留白底色。
+ *
+ * 左右各会有几十像素的「脏边」被裁掉（见 [computeEdgeTrim]），其余内容一律不动。
  */
 internal class SplashDrawable(
     private val bitmap: Bitmap,
@@ -134,9 +176,18 @@ internal class SplashDrawable(
 
     private val imagePaint = Paint(Paint.FILTER_BITMAP_FLAG or Paint.DITHER_FLAG)
     private val marginPaint = Paint()
-    private val matrix = Matrix()
+    private val srcRect = Rect(0, 0, bitmap.width, bitmap.height)
+    private val dstRect = RectF()
     private var alphaValue = 255
     private var filterLogCount = 0
+
+    init {
+        val (left, right) = computeEdgeTrim(bitmap)
+        if (left > 0 || right > 0) {
+            srcRect.set(left, 0, bitmap.width - right, bitmap.height)
+            Log.i(SplashKeys.TAG, "trim edge border: left=$left right=$right")
+        }
+    }
 
     override fun draw(canvas: Canvas) {
         val b: Rect = bounds
@@ -146,19 +197,19 @@ internal class SplashDrawable(
         marginPaint.alpha = alphaValue
         canvas.drawRect(b, marginPaint)
 
-        val bw = bitmap.width
-        val bh = bitmap.height
-        if (bw <= 0 || bh <= 0) return
+        val sw = srcRect.width()
+        val sh = srcRect.height()
+        if (sw <= 0 || sh <= 0) return
 
-        val scale = minOf(b.width().toFloat() / bw, b.height().toFloat() / bh)
-        val dx = b.left + (b.width() - bw * scale) / 2f
-        val dy = b.top + (b.height() - bh * scale) / 2f
-
-        matrix.setScale(scale, scale)
-        matrix.postTranslate(dx, dy)
+        val scale = minOf(b.width().toFloat() / sw, b.height().toFloat() / sh)
+        val dstW = sw * scale
+        val dstH = sh * scale
+        val dx = b.left + (b.width() - dstW) / 2f
+        val dy = b.top + (b.height() - dstH) / 2f
+        dstRect.set(dx, dy, dx + dstW, dy + dstH)
 
         imagePaint.alpha = alphaValue
-        canvas.drawBitmap(bitmap, matrix, imagePaint)
+        canvas.drawBitmap(bitmap, srcRect, dstRect, imagePaint)
     }
 
     override fun setAlpha(alpha: Int) {
