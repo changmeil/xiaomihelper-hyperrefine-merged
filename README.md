@@ -6,7 +6,7 @@
 
 - 源码：`build-xh/`
 - 成品与说明：`hyperrefine-merge/`（详细合并记录见 [`MERGE-XH.md`](hyperrefine-merge/MERGE-XH.md)）
-- 成品：`hyperrefine-merge/XiaomiHelper-26.07-merged-arm64-release.apk`（版本号每版递增：`26.07` / `26070`）
+- 成品：`hyperrefine-merge/XiaomiHelper-26.08-merged-arm64-release.apk`（版本号每版递增：`26.08` / `26080`）
 
 > 这是一个**个人自用**的合并派生工程，不是上游官方发行版。上游两个项目各自独立，本仓库只是把它们拼在一起。
 

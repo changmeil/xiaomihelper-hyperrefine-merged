@@ -1,6 +1,6 @@
 # 以 XiaomiHelper 为底座：双排信号图标 + HyperRefine 的 7 个功能
 
-产物：**`XiaomiHelper-26.07-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.07` / versionCode `26070`）
+产物：**`XiaomiHelper-26.08-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.08` / versionCode `26080`）
 源码树：`build-xh/`（XiaomiHelper master @ 2026-10-25 + hyperx-compose 子模块 + 我写的 `cn.ianzb.hyperrefine.hook` 包）
 状态：`assembleDebug` / `assembleRelease` 均 `BUILD SUCCESSFUL`，R8 混淆 + 资源压缩已开启，签名验证通过。
 
@@ -29,6 +29,10 @@
 | 息屏 | 全屏 AOD 智能显示修复 |
 | 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图，冷启动第一帧起生效）、哔哩哔哩媒体控制隐藏 |
 
+> v17（2026-11-02）：修深色模式下的开屏图 —— 系统会给 `windowBackground` 的 drawable 设
+> `PorterDuffColorFilter` 压暗，而 `SplashDrawable.setColorFilter` 原来只把它应用到图片 paint、
+> 没应用到留白 paint，结果「中间发灰、上下留白雪白」。现在整体忽略该 filter，图片与留白保持同一套原图配色。
+>
 > v16（2026-11-02）：重新并入「学习通开屏替换」（只保留内置图），作用域补回 `com.chaoxing.mobile`，
 > 系统侧（system_server / SystemUI）改为无条件装 hook、拦截时判开关。
 >
@@ -303,8 +307,7 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 | 文件 | 干什么 |
 |---|---|
 | `SplashKeys.kt` | 键名、包名、资源名、assets 路径、日志 TAG |
-| `SplashAssets.kt` | 从模块 APK 的 zip entry 直接读内置图（目标进程没有我们的 Context），带留白底色采样 |
-| `SplashDrawable.kt` | fit-center 绘制：整图不裁切不变形，余量填图片边缘主色 |
+| `SplashAssets.kt` | 从模块 APK 的 zip entry 直接读内置图（目标进程没有我们的 Context），带留白底色采样；内含 `SplashDrawable`（fit-center 绘制，整图不裁切不变形，余量填图片边缘主色） |
 | `SplashHooks.kt` | 资源层 / 视图层 hook，应用侧与系统侧两种判定模式 |
 | `SplashLoad.kt` | `com.chaoxing.mobile` 的路由 |
 
@@ -323,6 +326,14 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 2. **Switches 在拦截时判**，不在安装时判。system_server 启动早于 remote preferences 就绪，
    安装时读到默认值就永久不装 —— 症状和「模块根本没注入」完全一样，极难区分。
    `HfEntry` 里对 `system` / `com.android.systemui` 是**无条件装 hook**，开关 1 秒缓存、进来再判。
+
+### 坑：深色模式下开屏图「中间灰、上下白」（v17 修）
+
+`SplashDrawable` 是自绘的：先铺满留白纯色，再把图片等比画在中间。系统在深色模式（含强制深色）下
+会给 `windowBackground` 的 drawable 设一个 `PorterDuffColorFilter` 把整屏压暗 —— 如果这个 filter
+只应用到图片的 `Paint`（原始写法就是这样），就会变成图片发灰、上下留白仍是雪白，视觉上非常割裂。
+**处理方式：整体忽略 colorFilter**，图片和留白保持一致的原图配色（logcat 里能看到
+`CxSplash: ignored colorFilter (PorterDuffColorFilter)`，可以用来确认系统确实设过）。
 
 ### 使用前提
 

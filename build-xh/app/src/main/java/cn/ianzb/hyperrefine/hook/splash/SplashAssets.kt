@@ -136,6 +136,7 @@ internal class SplashDrawable(
     private val marginPaint = Paint()
     private val matrix = Matrix()
     private var alphaValue = 255
+    private var filterLogCount = 0
 
     override fun draw(canvas: Canvas) {
         val b: Rect = bounds
@@ -168,9 +169,18 @@ internal class SplashDrawable(
 
     override fun getAlpha(): Int = alphaValue
 
+    /**
+     * 系统（深色模式 / 强制深色）会给 windowBackground 的 drawable 设 colorFilter 把整屏压暗。
+     * 这个 drawable 是「图片 + 留白」合成的一整份设计稿，filter 只作用到图片会让中间发灰、
+     * 上下留白仍是雪白，观感割裂 —— 所以整体忽略，始终保持原图配色。
+     */
     override fun setColorFilter(colorFilter: ColorFilter?) {
-        imagePaint.colorFilter = colorFilter
-        invalidateSelf()
+        if (colorFilter != null && filterLogCount < 3) {
+            filterLogCount++
+            Log.i(SplashKeys.TAG, "ignored colorFilter (${colorFilter.javaClass.simpleName})")
+        }
+        // 不把 filter 应用到任何 paint：留白与图片必须同色系，否则深色模式下会一半灰一半白。
+        // 这里没有状态变化，刻意不调用 invalidateSelf()，避免系统反复设 filter 时触发重绘循环。
     }
 
     override fun getOpacity(): Int = if (alphaValue == 255) PixelFormat.OPAQUE else PixelFormat.TRANSLUCENT
