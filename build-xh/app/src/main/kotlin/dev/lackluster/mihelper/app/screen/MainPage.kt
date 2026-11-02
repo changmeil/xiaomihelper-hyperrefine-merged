@@ -191,8 +191,7 @@ private fun MainPageContent(
     val hapticFeedback = LocalHapticFeedback.current
 
     val contextMenuItems = listOf(
-        stringResource(R.string.ui_title_menu_reboot),
-        stringResource(R.string.menu_shortcut_lsposed)
+        stringResource(R.string.ui_title_menu_reboot)
     )
 
     HyperXPage(
@@ -214,7 +213,6 @@ private fun MainPageContent(
                             onSelectedIndexChange = {
                                 when (it) {
                                     0 -> onAction(MainPageAction.OpenMenu)
-                                    1 -> onAction(MainPageAction.OpenLSPosed)
                                 }
                                 showTopPopup.value = false
                             },
@@ -354,6 +352,16 @@ private fun MainPageContent(
                 key = Preferences.ThirdParty.ALIPAY_SPEED,
                 title = "支付宝极速模式",
                 summary = "向支付宝伪造低端机信号，让它走自带的降级省流逻辑。需在 LSPosed 作用域里勾选支付宝；改完必须强制停止支付宝再打开",
+            )
+            SwitchPreference(
+                key = Preferences.ThirdParty.BILI_MEDIA_KEYGUARD,
+                title = "锁屏不显示哔哩哔哩媒体控制",
+                summary = "B 站播放时锁屏上不再出现媒体卡片，解锁后下拉通知栏仍可控制播放。改动需重启系统界面",
+            )
+            SwitchPreference(
+                key = Preferences.ThirdParty.BILI_MEDIA_SHADE,
+                title = "通知栏也不显示哔哩哔哩媒体控制",
+                summary = "连下拉通知栏的媒体卡片一起不生成，锁屏自然也没有。B 站的普通通知不受影响。改动需重启系统界面",
             )
         }
         itemPreferenceGroup(

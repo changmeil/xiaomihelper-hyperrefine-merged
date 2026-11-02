@@ -677,5 +677,11 @@ object Preferences {
     object ThirdParty {
         val WECHAT_COMPAT = PreferenceKey("embed_wechat_compat", false)
         val ALIPAY_SPEED = PreferenceKey("embed_alipay_speed", false)
+
+        /** 锁屏不显示哔哩哔哩媒体控制（下拉通知栏保留）。 */
+        val BILI_MEDIA_KEYGUARD = PreferenceKey("third_party_bili_media_keyguard", false)
+
+        /** 通知栏也不显示哔哩哔哩媒体控制（锁屏一并消失）。 */
+        val BILI_MEDIA_SHADE = PreferenceKey("third_party_bili_media_shade", false)
     }
 }

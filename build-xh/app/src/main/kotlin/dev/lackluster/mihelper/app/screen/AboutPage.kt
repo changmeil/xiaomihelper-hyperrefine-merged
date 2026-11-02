@@ -9,25 +9,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -59,16 +53,7 @@ import dev.lackluster.mihelper.data.Contributors
 import dev.lackluster.mihelper.data.References
 import dev.lackluster.mihelper.data.Route
 import org.koin.androidx.compose.koinViewModel
-import top.yukonga.miuix.kmp.basic.DropdownImpl
-import top.yukonga.miuix.kmp.basic.Icon
-import top.yukonga.miuix.kmp.basic.IconButton
-import top.yukonga.miuix.kmp.basic.ListPopupColumn
-import top.yukonga.miuix.kmp.basic.ListPopupDefaults
-import top.yukonga.miuix.kmp.basic.PopupPositionProvider
 import top.yukonga.miuix.kmp.basic.Text
-import top.yukonga.miuix.kmp.icon.MiuixIcons
-import top.yukonga.miuix.kmp.icon.extended.More
-import top.yukonga.miuix.kmp.overlay.OverlayListPopup
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 private sealed interface AboutPageAction {
@@ -111,59 +96,8 @@ private fun AboutPageContent(
     xposedState: XposedState,
     onAction: (AboutPageAction) -> Unit
 ) {
-    val showTopPopup = remember { mutableStateOf(false) }
-    val hapticFeedback = LocalHapticFeedback.current
-
-    val contextMenuItems = listOf(
-        stringResource(R.string.page_dev_ui_test),
-        stringResource(R.string.page_dev_ui_test)
-    )
-
     HyperXPage(
         title = stringResource(R.string.page_about),
-        actions = {
-            OverlayListPopup(
-                show = showTopPopup.value,
-                popupPositionProvider = ListPopupDefaults.ContextMenuPositionProvider,
-                alignment = PopupPositionProvider.Align.TopEnd,
-                onDismissRequest = { showTopPopup.value = false }
-            ) {
-                ListPopupColumn {
-                    contextMenuItems.forEachIndexed { index, string ->
-                        DropdownImpl(
-                            text = string,
-                            optionSize = contextMenuItems.size,
-                            isSelected = false,
-                            onSelectedIndexChange = {
-                                when (it) {
-                                    0 -> onAction(AboutPageAction.NavigateTo(Route.DevUITest))
-                                    1 -> onAction(AboutPageAction.NavigateTo(Route.DevUITest2))
-                                }
-                                showTopPopup.value = false
-                            },
-                            index = index
-                        )
-                    }
-                }
-            }
-            IconButton(
-                modifier = Modifier
-                    .padding(end = 21.dp)
-                    .size(40.dp),
-                onClick = {
-                    showTopPopup.value = true
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                },
-                holdDownState = showTopPopup.value
-            ) {
-                Icon(
-                    modifier = Modifier.size(26.dp),
-                    imageVector = MiuixIcons.More,
-                    contentDescription = "Menu",
-                    tint = MiuixTheme.colorScheme.onSurfaceSecondary
-                )
-            }
-        }
     ) {
         itemAnimated(
             key = "ABOUT_BANNER"

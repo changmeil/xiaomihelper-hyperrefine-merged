@@ -1,6 +1,6 @@
 # 以 XiaomiHelper 为底座：双排信号图标 + HyperRefine 的 7 个功能
 
-产物：**`XiaomiHelper-26.05-merged-arm64-release.apk`** —— **6.4 MB**
+产物：**`XiaomiHelper-26.06-merged-arm64-release.apk`** —— **8.6 MB**（versionName `26.06` / versionCode `26060`）
 源码树：`build-xh/`（XiaomiHelper master @ 2026-10-25 + hyperx-compose 子模块 + 我写的 `cn.ianzb.hyperrefine.hook` 包）
 状态：`assembleDebug` / `assembleRelease` 均 `BUILD SUCCESSFUL`，R8 混淆 + 资源压缩已开启，签名验证通过。
 
@@ -29,6 +29,11 @@
 | 息屏 | 全屏 AOD 智能显示修复 |
 | 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号） |
 
+> v15（2026-11-02）：界面清理 —— 主页右上角菜单只留「重启」（去掉 `LSPosed` 入口），
+> 「关于模块」页右上角的菜单整块删掉（里面只有两个重复的「界面元素测试」）。
+> 版本号从这一版起**每次发版都递增**：`versionName` 26.05 → 26.06、`versionCode` 26050 → 26060，
+> 产物文件名随版本走，旧的 `26.05` 包已被替换。
+>
 > v8（2026-10-29）：并入两个第三方模块（微信小程序兼容、支付宝极速模式），
 > 用「assets 内置 dex + 运行时装载 + de.robv 兼容桩」的方式接入，作用域扩到
 > `com.tencent.mm`、`com.eg.android.AlipayGphone`，详见第九节。

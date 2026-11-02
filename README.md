@@ -1,4 +1,4 @@
-# XiaomiHelper 26.05 + HyperRefine（合并版）
+# XiaomiHelper + HyperRefine（合并版）
 
 把 [XiaomiHelper](https://github.com/HowieHChen/XiaomiHelper) 当底座，把
 [HyperRefine](https://github.com/Ianzb/HyperRefine) 的 7 个功能作为**第二个 Xposed 入口**挂进去，
@@ -6,7 +6,7 @@
 
 - 源码：`build-xh/`
 - 成品与说明：`hyperrefine-merge/`（详细合并记录见 [`MERGE-XH.md`](hyperrefine-merge/MERGE-XH.md)）
-- 成品：`hyperrefine-merge/XiaomiHelper-26.05-merged-arm64-release.apk`
+- 成品：`hyperrefine-merge/XiaomiHelper-26.06-merged-arm64-release.apk`（版本号每版递增：`26.06` / `26060`）
 
 > 这是一个**个人自用**的合并派生工程，不是上游官方发行版。上游两个项目各自独立，本仓库只是把它们拼在一起。
 

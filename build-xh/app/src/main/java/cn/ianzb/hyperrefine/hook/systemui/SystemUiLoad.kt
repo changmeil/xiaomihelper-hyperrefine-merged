@@ -3,6 +3,8 @@ package cn.ianzb.hyperrefine.hook.systemui
 import cn.ianzb.hyperrefine.hook.base.BaseLoad
 import cn.ianzb.hyperrefine.hook.base.PackageTarget
 import cn.ianzb.hyperrefine.hook.prefs.HookPrefs
+import cn.ianzb.hyperrefine.hook.systemui.media.BiliKeyguardMediaHook
+import cn.ianzb.hyperrefine.hook.systemui.media.BiliShadeMediaHook
 
 /**
  * 系统界面（com.android.systemui）目标 Load：只保留融合设备中心的三个开关。
@@ -24,6 +26,9 @@ class SystemUiLoad : BaseLoad() {
         )
         initHook(DeviceCenterMoreHook(), true)
         initHook(DeviceCenterHitAreaHook(), true)
+        // 哔哩哔哩媒体控制：两条都无条件安装，开关在回调里判（改完立即生效）。
+        initHook(BiliKeyguardMediaHook(), true)
+        initHook(BiliShadeMediaHook(), true)
     }
 
     companion object {
