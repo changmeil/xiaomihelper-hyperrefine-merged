@@ -6,7 +6,7 @@
 
 - 源码：`build-xh/`
 - 成品与说明：`hyperrefine-merge/`（详细合并记录见 [`MERGE-XH.md`](hyperrefine-merge/MERGE-XH.md)）
-- 成品：`hyperrefine-merge/XiaomiHelper-26.06-merged-arm64-release.apk`（版本号每版递增：`26.06` / `26060`）
+- 成品：`hyperrefine-merge/XiaomiHelper-26.07-merged-arm64-release.apk`（版本号每版递增：`26.07` / `26070`）
 
 > 这是一个**个人自用**的合并派生工程，不是上游官方发行版。上游两个项目各自独立，本仓库只是把它们拼在一起。
 
@@ -21,10 +21,10 @@
 | 安全服务 | 隐藏进入 / 退出快充加速提醒 |
 | 设备互联 | 妙播音频低延迟 |
 | 息屏 | 全屏 AOD 智能显示修复 |
-| 第三方应用 | 微信小程序兼容（客户端版本伪装）、支付宝极速模式（伪造低端机信号） |
+| 第三方应用 | 微信小程序兼容（客户端版本伪装）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图）、哔哩哔哩媒体控制隐藏 |
 
 `scope.list`：`system`、`com.android.systemui`、`com.miui.securitycenter`、`com.milink.service`、
-`com.miui.home`、`com.tencent.mm`、`com.eg.android.AlipayGphone`。
+`com.miui.home`、`com.tencent.mm`、`com.eg.android.AlipayGphone`、`com.chaoxing.mobile`。
 
 ## 构建
 

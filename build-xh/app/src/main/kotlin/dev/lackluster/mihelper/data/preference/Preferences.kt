@@ -683,5 +683,8 @@ object Preferences {
 
         /** 通知栏也不显示哔哩哔哩媒体控制（锁屏一并消失）。 */
         val BILI_MEDIA_SHADE = PreferenceKey("third_party_bili_media_shade", false)
+
+        /** 学习通开屏替换（内置图，键名与 `SplashKeys.REPLACE` 一致）。默认开。 */
+        val CHAOXING_SPLASH = PreferenceKey("chaoxing_splash_replace", true)
     }
 }

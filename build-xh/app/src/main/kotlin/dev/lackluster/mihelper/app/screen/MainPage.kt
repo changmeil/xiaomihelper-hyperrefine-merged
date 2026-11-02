@@ -363,6 +363,11 @@ private fun MainPageContent(
                 title = "通知栏也不显示哔哩哔哩媒体控制",
                 summary = "连下拉通知栏的媒体卡片一起不生成，锁屏自然也没有。B 站的普通通知不受影响。改动需重启系统界面",
             )
+            SwitchPreference(
+                key = Preferences.ThirdParty.CHAOXING_SPLASH,
+                title = "学习通开屏替换",
+                summary = "把学习通开屏换成内置图片，从冷启动第一帧起生效。需在 LSPosed 作用域里勾选学习通和系统框架，改完重启手机",
+            )
         }
         itemPreferenceGroup(
             key = "MAIN_ABOUT",

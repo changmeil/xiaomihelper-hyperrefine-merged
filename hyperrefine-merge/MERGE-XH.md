@@ -1,6 +1,6 @@
 # 以 XiaomiHelper 为底座：双排信号图标 + HyperRefine 的 7 个功能
 
-产物：**`XiaomiHelper-26.06-merged-arm64-release.apk`** —— **8.6 MB**（versionName `26.06` / versionCode `26060`）
+产物：**`XiaomiHelper-26.07-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.07` / versionCode `26070`）
 源码树：`build-xh/`（XiaomiHelper master @ 2026-10-25 + hyperx-compose 子模块 + 我写的 `cn.ianzb.hyperrefine.hook` 包）
 状态：`assembleDebug` / `assembleRelease` 均 `BUILD SUCCESSFUL`，R8 混淆 + 资源压缩已开启，签名验证通过。
 
@@ -27,8 +27,11 @@
 | 安全服务 | 隐藏进入、退出快充加速提醒 |
 | 设备互联 | 妙播音频低延迟 |
 | 息屏 | 全屏 AOD 智能显示修复 |
-| 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号） |
+| 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图，冷启动第一帧起生效）、哔哩哔哩媒体控制隐藏 |
 
+> v16（2026-11-02）：重新并入「学习通开屏替换」（只保留内置图），作用域补回 `com.chaoxing.mobile`，
+> 系统侧（system_server / SystemUI）改为无条件装 hook、拦截时判开关。
+>
 > v15（2026-11-02）：界面清理 —— 主页右上角菜单只留「重启」（去掉 `LSPosed` 入口），
 > 「关于模块」页右上角的菜单整块删掉（里面只有两个重复的「界面元素测试」）。
 > 版本号从这一版起**每次发版都递增**：`versionName` 26.05 → 26.06、`versionCode` 26050 → 26060，
@@ -288,26 +291,50 @@ FastChargeExitNotifyHook: hooked 2 method(s) [a, b]
 - 一条 `seen` 都没有 → 说明这条通知不是安全服务发的，得再看是哪个包（大概率是
   `com.miui.powerkeeper`），那种情况要再加作用域。
 
-## 八、已撤掉：学习通开屏替换（v11 合入 → v13 移除）
+## 八、学习通开屏替换（v11 合入 → v13 撤掉 → v16 重新合入）
 
-v11 曾把 ChaoxingSplash 1.9.4 的核心逻辑源码级并入：`cn/ianzb/hyperrefine/hook/splash/`（4 个文件）、
-`assets/splash_default.jpg`、开关键 `chaoxing_splash_replace`、作用域 `com.chaoxing.mobile`。
-v13 全部删掉，界面上的「学习通开屏替换」开关与作用域一并撤除。
+把 [ChaoxingSplash](https://github.com/changmeil/ChaoxingSplash) 1.9.4 的核心逻辑源码级并进来，
+**只保留内置默认图**（去掉上游的「自定义选图」：文件通道、Base64 通道、选图页全部不要）。
 
-放弃的原因（实测，不是猜的）：
+新增文件：`cn/ianzb/hyperrefine/hook/splash/`（4 个）、`assets/splash_default.jpg`（112 KB）、
+开关键 `chaoxing_splash_replace`（默认**开**）、界面「第三方应用 → 学习通开屏替换」、
+作用域 `com.chaoxing.mobile`。
 
-1. **冷启动前 ~2.6 秒的上屏画面不是学习通画的**。`am start` 后 WindowManager 创建
-   `Splash Screen com.chaoxing.mobile`，这一段由 **system_server** 用主题 `CxTheme.Splash` 的
-   `windowBackground = @drawable/splash` 渲染。应用侧 hook 做得再早也没用：
-   实测 48.29s 学习通进程内已替换成功，屏幕到 49.01s 启动窗口消失才切图。
-2. **要补这一段就必须注入 `system`（system_server）**。当时作用域被 `staticScope=true` 钉在首次安装的
-   快照上，`system` 从没进过 LSPosed 的库；即便把 `staticScope` 改成 `false`，还得在管理器里手动补勾
-   并重启验证。为了一张开屏图去动系统框架作用域，风险与收益不成比例，就此停手。
-3. **代价端太大**：要在 SystemUI / system_server 里挂 `Resources#loadDrawable` —— 全机资源加载的
-   公共路径，任何一次误判影响的是整机，而不是一个 App。
+| 文件 | 干什么 |
+|---|---|
+| `SplashKeys.kt` | 键名、包名、资源名、assets 路径、日志 TAG |
+| `SplashAssets.kt` | 从模块 APK 的 zip entry 直接读内置图（目标进程没有我们的 Context），带留白底色采样 |
+| `SplashDrawable.kt` | fit-center 绘制：整图不裁切不变形，余量填图片边缘主色 |
+| `SplashHooks.kt` | 资源层 / 视图层 hook，应用侧与系统侧两种判定模式 |
+| `SplashLoad.kt` | `com.chaoxing.mobile` 的路由 |
 
-留在代码里的唯一遗产是 `module.prop` 的 `staticScope=false`（原来是 `true`）。它不是学习通专用的：
-钉死作用域会让以后**任何**新增包都只能靠卸载重装生效，解开后覆盖安装就能重读 `scope.list`，所以保留。
+### 关键：为什么必须注入 system_server
+
+冷启动第一帧不是学习通画的。`am start` 之后 WindowManager 创建 `Splash Screen com.chaoxing.mobile`，
+这一段由 **system_server** 用主题 `CxTheme.Splash` 的 `windowBackground = @drawable/splash` 渲染，
+比应用进程更早上屏（实测 2026-10-31：46.35s 上屏、48.29s 应用侧已替换成功、49.01s 才切到新图）。
+所以系统侧必须挂同一套 `Resources#loadDrawable`，否则永远慢 2 秒多。
+
+系统侧与上游一致的两条设计：
+
+1. **拿不到对方进程解析出的资源 id**，只能按资源名反查（`com.chaoxing.mobile:drawable/splash`）。
+   先用 `0x7f`（应用包）高位做免费过滤，命中才做较贵的 `getResourceName`，
+   结果按 `(Resources 身份哈希, resId)` 缓存，避免给全机资源加载加长期开销。
+2. **Switches 在拦截时判**，不在安装时判。system_server 启动早于 remote preferences 就绪，
+   安装时读到默认值就永久不装 —— 症状和「模块根本没注入」完全一样，极难区分。
+   `HfEntry` 里对 `system` / `com.android.systemui` 是**无条件装 hook**，开关 1 秒缓存、进来再判。
+
+### 使用前提
+
+- LSPosed 作用域里本模块要同时勾 **学习通** 和 **系统框架**（`system`）；
+- `staticScope=false`（v12 起），覆盖安装会重读 `scope.list`，正常情况下这两项会自动出现；
+- 改完开关不需要重启学习通（拦截时判），但 system_server 只在**开机**注入一次，改系统侧代码必须重启手机。
+
+> v13 曾经因为「为了一张开屏图要动 system 作用域，代价不值」整体撤掉；v16 用户明确要求重新加入，
+> 于是按上面的方式重做。开关默认打开，想关掉就在界面上关，不动作用域也不会出问题 ——
+> hook 无条件装着，但每次资源加载都会先读开关，关掉就等于直通 `chain.proceed()`。
+
+---
 
 ## 九、v8：并入两个第三方模块（微信小程序兼容 / 支付宝极速模式）
 

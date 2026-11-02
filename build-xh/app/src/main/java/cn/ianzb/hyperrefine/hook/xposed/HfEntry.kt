@@ -8,6 +8,10 @@ import cn.ianzb.hyperrefine.hook.connect.MiLinkLoad
 import cn.ianzb.hyperrefine.hook.embed.EmbeddedModules
 import cn.ianzb.hyperrefine.hook.prefs.HookPrefs
 import cn.ianzb.hyperrefine.hook.securitycenter.SecurityCenterLoad
+import cn.ianzb.hyperrefine.hook.splash.SplashAssets
+import cn.ianzb.hyperrefine.hook.splash.SplashHooks
+import cn.ianzb.hyperrefine.hook.splash.SplashKeys
+import cn.ianzb.hyperrefine.hook.splash.SplashLoad
 import cn.ianzb.hyperrefine.hook.systemui.SystemUiLoad
 import dev.lackluster.mihelper.data.preference.Preferences
 import io.github.libxposed.api.XposedModule
@@ -55,6 +59,21 @@ class HfEntry : XposedModule() {
             )
         }.onFailure { Log.e(TAG, "EmbeddedModules.attach failed", it) }
 
+        // 学习通开屏替换：内置图在模块 APK 的 assets 里，目标进程没有我们的 Context，
+        // 只能按 zip entry 直接从 APK 读，所以这里把路径交给 SplashAssets 缓存。
+        runCatching { SplashAssets.setModuleApk(getModuleApplicationInfo()?.sourceDir) }
+            .onFailure { Log.e(TAG, "SplashAssets.setModuleApk failed", it) }
+        // 系统侧（启动窗口首帧）**无条件装 hook**，开关在拦截时判：
+        // system_server 启动早于 remote preferences 就绪，这里读到默认值就不装的话，
+        // 表现为「模块明明注入了，开屏一动不动」。
+        if (isSystem || process == "android" || process == "system_server") {
+            runCatching { SplashHooks.installForSystem("system") }
+                .onFailure { Log.e(TAG, "splash install (system) failed", it) }
+        } else if (process == SplashKeys.SYSTEMUI) {
+            runCatching { SplashHooks.installForSystem(SplashKeys.SYSTEMUI) }
+                .onFailure { Log.e(TAG, "splash install (systemui) failed", it) }
+        }
+
         // 跟随宿主的模块总开关：关掉时这 7 个功能也一起停，避免出现「主开关关了还在生效」。
         isEnabled = runCatching { HookPrefs.getBoolean(HOST_MASTER_SWITCH, true) }.getOrDefault(true)
         HookHelper.log("HyperRefine bridge loaded in $process, enabled=$isEnabled")
@@ -77,6 +96,10 @@ class HfEntry : XposedModule() {
     }
 
     override fun onSystemServerStarting(param: XposedModuleInterface.SystemServerStartingParam) {
+        // 这个回调在任何 starting window 创建之前触发，是挂系统侧 hook 的正确时机；
+        // installForSystem 是幂等的，和 onModuleLoaded 里那次重复调用没有副作用。
+        runCatching { SplashHooks.installForSystem("system") }
+            .onFailure { Log.e(TAG, "splash install (system, starting) failed", it) }
         if (!isEnabled) return
         HookPrefs.init(getRemotePreferences(Preferences.NAME))
         val target = PackageTarget.fromSystemServer(param)
@@ -96,6 +119,7 @@ class HfEntry : XposedModule() {
         SystemUiLoad.TARGET_PACKAGE -> listOf(SystemUiLoad())
         SecurityCenterLoad.TARGET_PACKAGE -> listOf(SecurityCenterLoad())
         MiLinkLoad.TARGET_PACKAGE -> listOf(MiLinkLoad())
+        SplashKeys.PKG -> listOf(SplashLoad())
         else -> emptyList()
     }
 }
