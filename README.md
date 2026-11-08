@@ -6,7 +6,7 @@
 
 - 源码：`build-xh/`
 - 成品与说明：`hyperrefine-merge/`（详细合并记录见 [`MERGE-XH.md`](hyperrefine-merge/MERGE-XH.md)）
-- 成品：`hyperrefine-merge/XiaomiHelper-26.09-merged-arm64-release.apk`（版本号每版递增：`26.09` / `26090`）
+- 成品：`hyperrefine-merge/XiaomiHelper-26.10-merged-arm64-release.apk`（版本号每版递增：`26.10` / `26100`）
 
 > 这是一个**个人自用**的合并派生工程，不是上游官方发行版。上游两个项目各自独立，本仓库只是把它们拼在一起。
 
@@ -21,6 +21,7 @@
 | 安全服务 | 隐藏进入 / 退出快充加速提醒 |
 | 设备互联 | 妙播音频低延迟 |
 | 息屏 | 全屏 AOD 智能显示修复 |
+| 充电 | 锁定公版 PPS 快充（调用设备上的 FreePPS 模块，带控制中心磁贴，需要 root） |
 | 第三方应用 | 微信小程序兼容（客户端版本伪装）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图）、哔哩哔哩媒体控制隐藏 |
 
 `scope.list`：`system`、`com.android.systemui`、`com.miui.securitycenter`、`com.milink.service`、

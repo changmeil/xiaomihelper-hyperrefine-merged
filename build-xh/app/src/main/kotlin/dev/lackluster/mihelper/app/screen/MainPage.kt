@@ -24,12 +24,14 @@ import dev.lackluster.hyperx.ui.layout.HyperXPage
 import dev.lackluster.hyperx.ui.preference.ItemPosition
 import dev.lackluster.hyperx.ui.preference.SwitchPreference
 import dev.lackluster.hyperx.ui.preference.TextPreference
+import dev.lackluster.hyperx.ui.preference.core.rememberPreferenceState
 import dev.lackluster.hyperx.ui.preference.itemPreferenceGroup
 import dev.lackluster.mihelper.R
 import dev.lackluster.mihelper.data.Constants
 import dev.lackluster.mihelper.data.Route
 import dev.lackluster.mihelper.data.preference.Preferences
 import dev.lackluster.mihelper.app.state.AppEnvViewModel
+import dev.lackluster.mihelper.app.utils.FreePps
 import dev.lackluster.mihelper.app.utils.SystemCommander
 import dev.lackluster.mihelper.app.utils.showToast
 import dev.lackluster.mihelper.utils.Device
@@ -189,6 +191,15 @@ private fun MainPageContent(
 ) {
     val showTopPopup = remember { mutableStateOf(false) }
     val hapticFeedback = LocalHapticFeedback.current
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    // PPS 开关的真实状态在 FreePPS 模块的 free 文件里，界面这个键只是缓存：
+    // 每次进页面读一次，读不到（没装模块 / 没给 root）就保持原样，不去改它。
+    val ppsLocked = rememberPreferenceState(Preferences.ThirdParty.PPS_LOCK)
+    LaunchedEffect(Unit) {
+        FreePps.readLocked()?.let { ppsLocked.value = it }
+    }
 
     val contextMenuItems = listOf(
         stringResource(R.string.ui_title_menu_reboot)
@@ -337,6 +348,26 @@ private fun MainPageContent(
                 key = Preferences.HyperRefine.AOD_FULL_BRIDGE,
                 title = "全屏 AOD 智能显示修复",
                 summary = "强开全屏 AOD 后，智能显示熄灭再恢复时不再黑屏。改动需重启系统生效",
+            )
+        }
+        itemPreferenceGroup(
+            key = "MAIN_CHARGING",
+            title = "充电",
+        ) {
+            SwitchPreference(
+                title = "锁定公版 PPS 快充",
+                summary = "调用 FreePPS 模块切换 PPS 锁定，和系统控制中心的「PPS 快充」磁贴是同一个开关。需已安装 FreePPS 模块并授予 root；磁贴要自己去控制中心编辑里加一下",
+                checked = ppsLocked.value,
+                onCheckedChange = { want ->
+                    scope.launch {
+                        val real = FreePps.setLocked(want)
+                        if (real == null) {
+                            context.showToast("切换失败：没装 FreePPS 模块，或者没授予 root")
+                        } else {
+                            ppsLocked.value = real
+                        }
+                    }
+                },
             )
         }
         itemPreferenceGroup(

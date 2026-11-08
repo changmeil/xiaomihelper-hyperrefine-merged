@@ -932,4 +932,8 @@
     <string name="media_elm_prog_comet_tips">A progress bar with a fading transparency effect, like a comet trailing a small tail.</string>
     <string name="media_hint_ambient_lighting">The ambient light effect requires high performance and resource usage, which may cause issues such as device overheating. Please enable with caution. If any problems occur, it is recommended to disable this feature.</string>
     <string name="media_hint_advanced_textures">Since Advanced textures have been set as the default background for media controls, the corresponding option has been removed. If you need to adjust the effects of Advanced textures, use a Magisk module or the system theme to modify the blur parameters.</string>
+    <string name="tile_pps_label">PPS Fast Charge</string>
+    <string name="tile_pps_state_locked">PPS locked</string>
+    <string name="tile_pps_state_paused">PPS paused</string>
+    <string name="tile_pps_state_missing">FreePPS module not found</string>
 </resources>

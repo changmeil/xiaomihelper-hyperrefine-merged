@@ -686,5 +686,8 @@ object Preferences {
 
         /** 学习通开屏替换（内置图，键名与 `SplashKeys.REPLACE` 一致）。默认开。 */
         val CHAOXING_SPLASH = PreferenceKey("chaoxing_splash_replace", true)
+
+        /** 锁定公版 PPS 快充（界面缓存值，真实状态在 FreePPS 模块的 free 文件里）。 */
+        val PPS_LOCK = PreferenceKey("third_party_pps_lock", false)
     }
 }

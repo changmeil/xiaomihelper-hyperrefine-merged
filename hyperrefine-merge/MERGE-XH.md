@@ -1,6 +1,6 @@
 # 以 XiaomiHelper 为底座：双排信号图标 + HyperRefine 的 7 个功能
 
-产物：**`XiaomiHelper-26.09-merged-arm64-release.apk`** —— **8.7 MB**（versionName `26.09` / versionCode `26090`）
+产物：**`XiaomiHelper-26.10-merged-arm64-release.apk`** —— **8.8 MB**（versionName `26.10` / versionCode `26100`）
 源码树：`build-xh/`（XiaomiHelper master @ 2026-10-25 + hyperx-compose 子模块 + 我写的 `cn.ianzb.hyperrefine.hook` 包）
 状态：`assembleDebug` / `assembleRelease` 均 `BUILD SUCCESSFUL`，R8 混淆 + 资源压缩已开启，签名验证通过。
 
@@ -27,8 +27,15 @@
 | 安全服务 | 隐藏进入、退出快充加速提醒 |
 | 设备互联 | 妙播音频低延迟 |
 | 息屏 | 全屏 AOD 智能显示修复 |
+| 充电 | 锁定公版 PPS 快充（调用 FreePPS 模块，带控制中心磁贴） |
 | 第三方应用 | 微信小程序兼容（客户端版本伪装 8.0.79）、支付宝极速模式（伪造低端机信号）、学习通开屏替换（内置图，冷启动第一帧起生效）、哔哩哔哩媒体控制隐藏 |
 
+> v19（2026-11-08）：新增「充电 → 锁定公版 PPS 快充」开关 + 控制中心磁贴。
+> **注意这不是纯 Xposed 功能**：真正干活的是设备上的 FreePPS 模块（KernelSU/Magisk，
+> `/data/adb/modules/FreePPS`，Rust 守护进程按 `free` 文件的值改充电节点），
+> 我们只做了一个和官方 App 等价的遥控器（读写 `free` + 调 `action.sh`），需要 root。
+> 详见第十节。
+>
 > v18（2026-11-02）：裁掉内置图自带的左右窄边框 —— 这张图 x=0..7 是约 `(96,97,91)` 的深灰竖边，
 > 按宽度铺满屏幕后就是两条竖线。`SplashDrawable` 改为绘制时用 src rect 跳过左右脏边（最多 1%、上限 24px，
 > 一路脏到上限就判定不是边框、不裁），日志 `trim edge border: left=8 right=8`。
@@ -548,3 +555,39 @@ hooked c64.bg.setClientVersion(int)
 - XiaomiHelper：GPL-3.0；`hyperx-compose`：Apache-2.0。
 - HyperRefine：AGPL-3.0。AGPLv3 第 13 条允许与 GPLv3 代码结合，**结合后的整体按 AGPL-3.0 分发**。
 - 这是给自己用的本地构建；如果要公开发布这个合并版，两个项目的许可与署名都得保留。
+
+---
+
+## 十、FreePPS 联动（v19）
+
+来源：用户给的 `FreePPS` 官方配套 App（`me.freepps.tile`，1.6 MB），以及它的源码
+[`Seyud/FreePPS`](https://github.com/Seyud/FreePPS)。看源码后确认：**这个 App 只是个壳**，
+真正的功能是一个 KernelSU / Magisk 模块：
+
+- 模块目录 `/data/adb/modules/FreePPS`，`service.sh` 在开机解锁后拉起 Rust 二进制；
+- 该守护进程监控充电状态，按 `free` 文件的值（`1` 锁定公版 PPS / `0` 暂停）去写充电节点，
+  解锁公版 PPS（`pd_verifed` 等），与小米私有 MIPPS 互斥；
+- App 侧只做两件事：`su -c "cat /data/adb/modules/FreePPS/free"` 读状态、
+  `su -c "sh /data/adb/modules/FreePPS/action.sh"` 翻转状态（脚本里就是 `printf 0/1 > free`）。
+
+所以我们没有搬那套 Compose 界面（反编译的 Compose 也搬不回来），而是按同样的语义做了两件东西：
+
+| 位置 | 文件 | 作用 |
+|---|---|---|
+| 主界面「充电」分组 | `app/utils/FreePps.kt` | `readLocked()` / `setLocked()`，走 `SystemCommander`（libsu）在 IO 线程跑 `su` |
+| 控制中心磁贴 | `app/service/PpsTileService.kt` | 点一下切换，磁贴副标题显示「已锁定 PPS / 已暂停 / 未找到 FreePPS 模块」 |
+
+要点：
+
+- `action.sh` 是**无脑翻转**的，所以 `setLocked()` 会先读当前值，和目标一致就不调它 —— 否则连点两次就反回去了；
+- 改完一律再读一次，以真实结果为准（`printf` 也可能失败，比如 `free` 只读）；
+- 磁贴回调在主线程而 `su` 阻塞，所以全部丢到单线程池，回主线程再 `updateTile()`；
+  点下去先把磁贴置 `STATE_UNAVAILABLE`，避免连点翻车；
+- 界面那个开关的偏好键 `third_party_pps_lock` **只是显示缓存**，真实状态在 `free` 文件里，
+  每次进主界面读一次校正；
+- 拿不到 root / 模块没装时统一返回 `null`：界面弹 toast「切换失败：没装 FreePPS 模块，或者没授予 root」，
+  磁贴显示为不可用。
+
+前提：设备上装了 FreePPS 模块，并且**给 XiaomiHelper 授予 root**（KernelSU 里勾上 `dev.lackluster.mihelper`）。
+磁贴要自己去「控制中心 → 编辑控件」里添加，系统没有可用的接口让第三方应用静默加磁贴
+（`cmd statusbar add-tile` 在 MIUI 上也是无效的）。

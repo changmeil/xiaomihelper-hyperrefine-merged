@@ -785,4 +785,8 @@
     <string name="others_taplus_rear_screen">背屏</string>
     <string name="others_taplus_xiaoai_integration">超级小爱集成</string>
     <string name="cleaner_browser_hide_voice_button">隐藏语音输入按钮</string>
+    <string name="tile_pps_label">PPS 快充</string>
+    <string name="tile_pps_state_locked">已锁定 PPS</string>
+    <string name="tile_pps_state_paused">已暂停</string>
+    <string name="tile_pps_state_missing">未找到 FreePPS 模块</string>
 </resources>
